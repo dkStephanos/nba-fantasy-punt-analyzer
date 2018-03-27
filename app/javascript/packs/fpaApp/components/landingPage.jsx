@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 const authorizeUrl = 'https://api.login.yahoo.com/oauth2/request_auth';
 const clientId = process.env.CLIENT_ID;
-const redirectUri = 'http://stephanos.pagekite.me'
+const redirectUri = 'http://stephanos.pagekite.me/auth'
 const responseType = 'code'
 const language = 'en-us';
 
