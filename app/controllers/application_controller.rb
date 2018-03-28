@@ -1,15 +1,14 @@
 require 'toki_toki'
-require 'yahoo_nba'
+require 'Authenticator'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def yahoo
-  	byebug
-  	yahoo_nba = YahooNba.new(params[:code])
-  	byebug
+  	authenticator = Authenticator.new
+    token = authenticator.yahoo(params[:code])
     # Generate token...
-    token = TokiToki.encode(yahoo_nba)
+    #token = TokiToki.encode(login)
     # ... create user if it doesn't exist...
     #User.where(login: login).first_or_create!(
     #  name: name,

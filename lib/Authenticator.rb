@@ -12,13 +12,16 @@ class Authenticator
   private
 
   def fetch_yahoo_access_token(code)
-    resp = @connection.post ENV['YAHOO_ACCESS_TOKEN_URL'], {
-      client_id:     ENV['CLIENT_ID'],
-      client_secret: ENV['CLIENT_SECRET'],
-      redirect_uri: ENV['NBA_FPA_YAHOO_CALLBACK_URL'],
-      code:          code,
-      grant_type: authorization_code
-    }
+  	resp = Faraday.post(ENV['YAHOO_ACCESS_TOKEN_URL']) do |req|
+  		req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  		req.body = {
+				      client_id:     ENV['CLIENT_ID'],
+				      client_secret: ENV['CLIENT_SECRET'],
+				      redirect_uri: ENV['NBA_FPA_AUTH_CALLBACK_URL'],
+				      code:          code,
+				      grant_type: 'authorization_code'
+				    }
+	end
     raise IOError, 'FETCH_ACCESS_TOKEN' unless resp.success?
     URI.decode_www_form(resp.body).to_h
   end
