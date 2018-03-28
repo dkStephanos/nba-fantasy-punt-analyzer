@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   root to: "pages#root"
-  get '/auth', to: 'application#auth', format: false
+  get '/auth', to: 'application#yahoo', format: false
 end
