@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def yahoo
+  	#byebug
   	authenticator = Authenticator.new
     token = authenticator.yahoo(params[:code])
     # Generate token...
