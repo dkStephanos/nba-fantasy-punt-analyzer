@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-class LandingPage extends React.Component {
+class HomePage extends React.Component {
 
   render() {
     return(
@@ -12,4 +12,4 @@ class LandingPage extends React.Component {
     )
   }
 }
-export default LandingPage;
+export default HomePage;

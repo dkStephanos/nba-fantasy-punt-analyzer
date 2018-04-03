@@ -1,10 +1,10 @@
-import { auth } from '../../utils/init';
+import { auth } from '../utils/init';
 import React, { Component } from 'react';
 
 class LoginTransition extends Component {
   componentDidMount() {
     const token = auth.getQueryParams();
-    auth.doAuthentication(token.token);
+    auth.doAuthentication(token);
   }
 
   render() {

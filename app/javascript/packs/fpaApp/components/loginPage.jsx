@@ -7,7 +7,7 @@ const redirectUri = 'http://stephanos.pagekite.me/auth'
 const responseType = 'token'
 const language = 'en-us';
 
-class LandingPage extends React.Component {
+class LoginPage extends React.Component {
 
   render() {
     return(
@@ -22,4 +22,4 @@ class LandingPage extends React.Component {
     )
   }
 }
-export default LandingPage;
+export default LoginPage;

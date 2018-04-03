@@ -3,13 +3,15 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom'
-import LandingPage from './components/landingPage';
-import AuthPage from './components/AuthPage';
+import LoginPage from './components/loginPage';
+import LoginTransition from './components/loginTransition';
+import HomePage from './components/homePage';
 const App = (props) => (
   <Router>
     <div>
-      <Route exact path='/' component={LandingPage} />
-      <Route exact path='/auth' component={AuthPage} />
+      <Route exact path='/' component={LoginPage} />
+      <Route exact path='/auth' component={LoginTransition} />
+      <Route exact path='/home' component={HomePage} />
     </div>
   </Router>
 )

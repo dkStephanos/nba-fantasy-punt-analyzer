@@ -28,11 +28,8 @@ export default class AuthService {
   }
 
   getQueryParams() {
-    const query = window.location.search.substring(1);
-    const pairs = query.split('&').map(str => str.split('='));
-    return pairs.reduce((memo, pair) => {
-      memo[pair[0]] = pair[1];
-      return memo;
-    }, {});
+    const url = window.location.href;
+    const token = url.match(/\#(?:access_token)\=([\S\s]*?)\&/)[1];
+    return token;
   }
 }
