@@ -41,7 +41,6 @@ export const getLeagueById = leagueId => {
 export const getLeagues = () => {
   return dispatch => {
     return fetch(`${API_URL}/users;use_login=1/games;game_keys=${gameId}/leagues`, {
-      mode: 'no-cors',	
       method: 'GET',
       headers: {
         Accept: 'application/json',
