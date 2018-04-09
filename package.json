@@ -5,6 +5,8 @@
     "@rails/webpacker": "^3.4.1",
     "babel-preset-react": "^6.24.1",
     "bootstrap": "^4.0.0",
+    "cors": "^2.8.4",
+    "fast-xml-parser": "^3.3.6",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
@@ -12,7 +14,8 @@
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.11.1"

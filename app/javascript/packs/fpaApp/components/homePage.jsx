@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import LeagueSelect from './leagueSelect';
 
 class HomePage extends React.Component {
 
@@ -7,6 +8,9 @@ class HomePage extends React.Component {
     return(
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
+
+        <LeagueSelect />
+
   		<Table striped bordered hover>
   <thead>
     <tr>

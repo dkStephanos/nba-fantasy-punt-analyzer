@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import { Switch } from 'react-router';
 import { Provider } from 'react-redux';
+import store from './store.js';
 
 import App from './components/app/App';
 import LoginPage from './components/loginPage';
@@ -12,7 +13,7 @@ import LoginTransition from './components/loginTransition';
 import HomePage from './components/homePage';
 
 const Routes = (props) => (
-	<Provider>  
+	<Provider store={store} >  
 	  <Router>
 	    <App>
 	    	<Switch>
