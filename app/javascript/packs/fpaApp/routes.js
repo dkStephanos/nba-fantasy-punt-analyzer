@@ -1,20 +1,28 @@
-import React from 'react'
+import React from 'react';
 import {
   BrowserRouter as Router,
-  Route,
-} from 'react-router-dom'
+  Route
+} from 'react-router-dom';
+import { Switch } from 'react-router';
+import { Provider } from 'react-redux';
+
+import App from './components/app/App';
 import LoginPage from './components/loginPage';
 import LoginTransition from './components/loginTransition';
 import HomePage from './components/homePage';
 
-const App = (props) => (
-  <Router>
-    <div>
-      <Route exact path='/' component={LoginPage} />
-      <Route exact path='/auth' component={LoginTransition} />
-      <Route exact path='/home' component={HomePage} />
-    </div>
-  </Router>
+const Routes = (props) => (
+	<Provider>  
+	  <Router>
+	    <App>
+	    	<Switch>
+	    		<Route path='/auth' component={LoginTransition} />
+	    		<Route path='/home' component={HomePage} />
+	    		<Route exact path='/' component={LoginPage} />
+	    	</Switch>
+	    </App>
+	  </Router>
+	</Provider>
 )
 
-export default App;
+export default Routes;
