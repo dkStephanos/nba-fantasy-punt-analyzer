@@ -6,7 +6,7 @@ class HomePage extends React.Component {
   render() {
     return(
       <div>
-        <h1>NBA Fantasy Analyzer</h1>
+        <h1>NBA Fantasy Analyzer App</h1>
   		
       </div>
     )
