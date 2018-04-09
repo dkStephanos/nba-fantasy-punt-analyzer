@@ -6,6 +6,7 @@ import {
 import LoginPage from './components/loginPage';
 import LoginTransition from './components/loginTransition';
 import HomePage from './components/homePage';
+
 const App = (props) => (
   <Router>
     <div>
@@ -15,4 +16,5 @@ const App = (props) => (
     </div>
   </Router>
 )
+
 export default App;
