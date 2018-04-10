@@ -13,7 +13,6 @@ const setLeague = league => {
 };
 
 const setLeagues = leagues => {
-  debugger;
   return {
     type: 'GET_LEAGUES_SUCCESS',
     leagues
