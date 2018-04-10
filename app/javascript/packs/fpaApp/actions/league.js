@@ -1,10 +1,8 @@
 import { auth } from '../utils/init';
-let fastXmlParser = require('fast-xml-parser');
 
-const API_URL = process.env.YAHOO_API_BASE_URL;
-const appUri = "http://stephanos.pagekite.me/";
+const YAHOO_API_URL = process.env.YAHOO_API_BASE_URL;
+const RAILS_API_URL = process.env.RAILS_API_URL;
 const gameId = process.env.GAME_ID;
-const token = auth.getToken();
 
 // ** Action Creators **
 const setLeague = league => {
@@ -15,6 +13,7 @@ const setLeague = league => {
 };
 
 const setLeagues = leagues => {
+  debugger;
   return {
     type: 'GET_LEAGUES_SUCCESS',
     leagues
@@ -23,8 +22,9 @@ const setLeagues = leagues => {
 
 // ** Async Actions **
 export const getLeagueById = leagueId => {
+  const token = auth.getToken();
   return dispatch => {
-    return fetch(`${API_URL}/leagues/${leagueId}`, {
+    return fetch(`${YAHOO_API_URL}/leagues/${leagueId}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -32,15 +32,16 @@ export const getLeagueById = leagueId => {
         Authorization: `${token}`
       }
     })
-      .then(response => fastXmlParser.parse(response))
+      .then(response => response.json())
       .then(league => dispatch(setLeague(league)))
       .catch(error => console.log(error));
   };
 };
 
 export const getLeagues = () => {
+  const token = auth.getToken();
   return dispatch => {
-    return fetch(`${API_URL}/users;use_login=1/games;game_keys=${gameId}/leagues`, {
+    return fetch(`${RAILS_API_URL}/user_leagues`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -48,7 +49,7 @@ export const getLeagues = () => {
         Authorization: `token ${token}`
       }
     })
-      .then(response => fastXmlParser.parse(response))
+      .then(response => response.json())
       .then(leagues => dispatch(setLeagues(leagues)))
       .catch(error => console.log(error));
   };
