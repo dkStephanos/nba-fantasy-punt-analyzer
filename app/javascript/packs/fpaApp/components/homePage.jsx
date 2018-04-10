@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import LeagueSelect from './leagueSelect';
+import LeagueSelect from '../containers/leagueSelect';
 
 class HomePage extends React.Component {
 
