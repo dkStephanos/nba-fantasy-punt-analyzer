@@ -5,8 +5,8 @@ class League extends React.Component {
   render() {
     return(
       <div>
-        <h3>NBA Fantasy Analyzer App</h3>
-
+        <h3>{this.props.name} ({this.props.numTeams})</h3>
+        <a href={this.props.url}>To League</a>
       </div>
     )
   }
