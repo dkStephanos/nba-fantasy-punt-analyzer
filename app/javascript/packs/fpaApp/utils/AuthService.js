@@ -3,7 +3,7 @@ export default class AuthService {
     // Saves the user token
     this.setToken(token);
     // navigate to the home route
-    window.location.replace('/home');
+    window.location.replace('/leagueSelect');
   }
 
   loggedIn() {

@@ -10,7 +10,9 @@ import store from './store.js';
 import App from './components/app/App';
 import LoginPage from './components/loginPage';
 import LoginTransition from './components/loginTransition';
-import HomePage from './components/homePage';
+
+import LeagueSelect from './containers/leagueSelect';
+import HomePage from './containers/homePage';
 
 const Routes = (props) => (
 	<Provider store={store} >  
@@ -18,6 +20,7 @@ const Routes = (props) => (
 	    <App>
 	    	<Switch>
 	    		<Route path='/auth' component={LoginTransition} />
+	    		<Route path='/leagueSelect' component={LeagueSelect} />
 	    		<Route path='/home' component={HomePage} />
 	    		<Route exact path='/' component={LoginPage} />
 	    	</Switch>

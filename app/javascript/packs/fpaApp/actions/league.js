@@ -20,10 +20,10 @@ const setLeagues = leagues => {
 };
 
 // ** Async Actions **
-export const getLeagueById = leagueId => {
+export const getLeagueByKey = leagueKey => {
   const token = auth.getToken();
   return dispatch => {
-    return fetch(`${YAHOO_API_URL}/leagues/${leagueId}`, {
+    return fetch(`${YAHOO_API_URL}/leagues/${leagueKey}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
