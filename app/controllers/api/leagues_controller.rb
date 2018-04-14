@@ -19,21 +19,16 @@ class Api::LeaguesController < ApplicationController
   end
 
   def players
-    yahooApi = YahooApi.new
     token = request.headers[:Authorization]
     league_key = request.headers[:LeagueKey]
-    resp = yahooApi.fetch_players(token, league_key, 1)
-    respJSON = Hash.from_xml(resp).as_json
-    byebug
-    if(respJSON["fantasy_content"]["users"]["user"]["games"]["count"].to_i > 1)
-      respJSON["fantasy_content"]["users"]["user"]["games"].each do |game|
-        if(game.game_key == ENV['GAME_ID'])
-          leagues = game["leagues"]["league"].to_json
-        end
-      end
+    yahooApi = YahooApi.new(token)
+    resp = yahooApi.players(league_key, 1)
+    respJSON = Hash.from_xml(resp.body).as_json
+    if(respJSON["fantasy_content"]["league"]["players"]["count"].to_i > 1)
+      players = respJSON["fantasy_content"]["league"]["players"]
     else
-      leagues = respJSON["fantasy_content"]["users"]["user"]["games"]["game"]["leagues"]["league"].to_json
+      players = "Error fetching players data"
     end
-    render json: leagues
+    render json: players
   end
 end

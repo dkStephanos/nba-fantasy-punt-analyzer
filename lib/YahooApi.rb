@@ -13,18 +13,8 @@ class YahooApi
     self.class.get(ENV['YAHOO_API_LEAGUES_URL'], :headers => @headers)
   end
 
-  def users
-    self.class.get("/2.2/users", @options)
-  end
-
-  def fetch_user_leagues(access_token)
-  	
-    resp = Faraday.get ENV['YAHOO_API_LEAGUES_URL'] do |req|
-  		req.headers['Authorization'] = access_token
-  		req.headers['Content-Type'] = 'application/json'
-	end
-    raise IOError, 'FETCH_USER_LEAGUES' unless resp.success?
-    resp.body
+  def players(league_key, start)
+    self.class.get(ENV['YAHOO_API_PLAYERS_URL'] + league_key + "/players" , :headers => @headers, :query => { start: start, sort: 'OR', status: 'FA' })
   end
 
   def fetch_players(access_token, league_key, start)
