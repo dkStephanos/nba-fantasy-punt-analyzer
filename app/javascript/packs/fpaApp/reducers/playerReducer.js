@@ -1,20 +1,12 @@
 const initialState = {
-  users: [],
-  user: {},
-  currentUser: {}
+  players: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_USER_SUCCESS':
-      return Object.assign({}, state, { user: action.user });
-
-    case 'GET_CURRENT_USER_SUCCESS':
-      return Object.assign({}, state, { currentUser: action.user });
-
-    case 'GET_USERS_SUCCESS':
+    case 'GET_PLAYERS_SUCCESS':
       return Object.assign({}, state, {
-        users: [...state.users, ...action.users]
+        players: [...state.players, ...action.players]
       });
 
     default:

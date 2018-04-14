@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   namespace :api do
   	get '/user_leagues', to: 'leagues#user_leagues'
-  	get '/league_players', to: 'leagues#players'
-
+  	get '/free_agents', to: 'players#free_agents'
   end
 end

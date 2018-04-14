@@ -2,20 +2,21 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getLeagueByKey } from '../actions/league';
+import { getPlayers } from '../actions/player';
 import { middleware } from '../middleware/init';
 
 class HomePage extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
   	const leagueKey = middleware.getLeagueKey();
-    this.props.getLeagueByKey(leagueKey);
+	//this.props.getLeagueByKey(leagueKey);
+	this.props.getPlayers(leagueKey);
   }
 
   render() {
-    //debugger;
+    debugger;
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
-
   		<Table striped bordered hover>
 		  <thead>
 		    <tr>
@@ -54,7 +55,8 @@ class HomePage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     league: state.leagueReducer.league,
+    players: state.playerReducer.players
   };
 };
 
-export default connect(mapStateToProps, { getLeagueByKey })(HomePage);
+export default connect(mapStateToProps, { getLeagueByKey, getPlayers })(HomePage);
