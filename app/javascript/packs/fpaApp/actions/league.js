@@ -23,12 +23,13 @@ const setLeagues = leagues => {
 export const getLeagueByKey = leagueKey => {
   const token = auth.getToken();
   return dispatch => {
-    return fetch(`${YAHOO_API_URL}/leagues/${leagueKey}`, {
+    return fetch(`${RAILS_API_URL}/league_players`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+        LeagueKey: `${leagueKey}`
       }
     })
       .then(response => response.json())

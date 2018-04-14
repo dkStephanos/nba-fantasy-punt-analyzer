@@ -11,7 +11,7 @@ class HomePage extends React.Component {
   }
 
   render() {
-    debugger;
+    //debugger;
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
