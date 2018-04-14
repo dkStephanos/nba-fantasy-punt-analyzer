@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getLeagues } from '../actions/league';
+import { middleware } from '../middleware/init';
 import League from '../components/league';
 
 class LeagueSelect extends React.Component {
@@ -10,6 +11,7 @@ class LeagueSelect extends React.Component {
 
   redirectToHomePage = leagueKey => {
   	//Save leagueKey in sessionStorage before redirecting to homePage
+    middleware.setLeagueKey(leagueKey);
     window.location.replace(`/home`);
   };
 

@@ -2,10 +2,12 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getLeagueByKey } from '../actions/league';
+import { middleware } from '../middleware/init';
 
 class HomePage extends React.Component {
   componentDidMount() {
-    this.props.getLeagueByKey(this.props.leagueKey);
+  	const leagueKey = middleware.getLeagueKey();
+    this.props.getLeagueByKey(leagueKey);
   }
 
   render() {
@@ -52,7 +54,6 @@ class HomePage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     league: state.leagueReducer.league,
-    leagueKey: ownProps.match.params.leagueKey
   };
 };
 
