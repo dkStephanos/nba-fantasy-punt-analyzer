@@ -28,7 +28,7 @@ export const getLeagueByKey = leagueKey => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `${token}`
+        Authorization: `Bearer ${token}`
       }
     })
       .then(response => response.json())
@@ -45,7 +45,7 @@ export const getLeagues = () => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: `token ${token}`
+        Authorization: `Bearer ${token}`
       }
     })
       .then(response => response.json())
