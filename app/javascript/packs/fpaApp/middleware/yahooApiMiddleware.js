@@ -1,3 +1,4 @@
+//Used to store and retrieve YahooApi data from sessionStorage
 export default class YahooApiMiddleware {
   getToken() {
     // Retrieves the user token from local storage

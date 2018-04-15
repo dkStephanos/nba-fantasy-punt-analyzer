@@ -12,7 +12,8 @@ class LeagueSelect extends React.Component {
   redirectToHomePage = leagueKey => {
   	//Save leagueKey in sessionStorage before redirecting to homePage
     middleware.setLeagueKey(leagueKey);
-    window.location.replace(`/home/1`);
+    //Redirect to home page at start position 0
+    window.location.replace(`/home/0`);
   };
 
   render() {
