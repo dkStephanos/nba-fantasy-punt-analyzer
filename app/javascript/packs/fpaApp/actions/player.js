@@ -13,7 +13,7 @@ const setPlayers = players => {
 };
 
 // ** Async Actions **
-export const getPlayers = leagueKey => {
+export const getFreeAgents = (leagueKey, start = 1) => {
   const token = auth.getToken();
   return dispatch => {
     return fetch(`${RAILS_API_URL}/free_agents`, {
@@ -22,7 +22,8 @@ export const getPlayers = leagueKey => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        LeagueKey: `${leagueKey}`
+        LeagueKey: `${leagueKey}`,
+        start: `${start}`
       }
     })
       .then(response => response.json())

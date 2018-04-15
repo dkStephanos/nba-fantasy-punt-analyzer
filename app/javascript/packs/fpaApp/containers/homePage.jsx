@@ -10,7 +10,7 @@ class HomePage extends React.Component {
   componentWillMount() {
   	const leagueKey = middleware.getLeagueKey();
 	//this.props.getLeagueByKey(leagueKey);
-	this.props.getPlayers(leagueKey);
+	this.props.getFreeAgents(leagueKey, 1);
   }
 
   render() {
