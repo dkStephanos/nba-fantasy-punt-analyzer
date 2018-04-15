@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getLeagueByKey } from '../actions/league';
 import { getPlayers } from '../actions/player';
 import { middleware } from '../middleware/init';
+import PlayerRow from '../components/playerRow';
 
 class HomePage extends React.Component {
   componentWillMount() {
@@ -13,38 +14,25 @@ class HomePage extends React.Component {
   }
 
   render() {
-    debugger;
+  	debugger;
+  	let currentRank = 1;
+  	const playerRows = this.props.players.map(player => (
+        <PlayerRow key={player.id} player={player} rank={currentRank++}/>
+    ));
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
   		<Table striped bordered hover>
 		  <thead>
 		    <tr>
-		      <th>#</th>
-		      <th>First Name</th>
-		      <th>Last Name</th>
-		      <th>Username</th>
+		      <th>Rank</th>
+		      <th>Name</th>
+		      <th>Team</th>
+		      <th>Positions</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
-		      <td>1</td>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		    </tr>
-		    <tr>
-		      <td>2</td>
-		      <td>Jacob</td>
-		      <td>Thornton</td>
-		      <td>@fat</td>
-		    </tr>
-		    <tr>
-		      <td>3</td>
-		      <td>Larry the Bird</td>
-		      <td></td>
-		      <td>@twitter</td>
-		    </tr>
+		    {playerRows}
 		  </tbody>
 		</Table>
       </div>
