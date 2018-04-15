@@ -5,15 +5,16 @@ const RAILS_API_URL = process.env.RAILS_API_URL;
 const gameId = process.env.GAME_ID;
 
 // ** Action Creators **
-const setPlayers = players => {
+const setPlayers = (players, playerStart) => {
   return {
     type: 'GET_PLAYERS_SUCCESS',
-    players
+    players,
+    playerStart
   };
 };
 
 // ** Async Actions **
-export const getFreeAgents = (leagueKey, start = 1) => {
+export const getFreeAgents = (leagueKey, playerStart = 1) => {
   const token = auth.getToken();
   return dispatch => {
     return fetch(`${RAILS_API_URL}/free_agents`, {
@@ -23,11 +24,12 @@ export const getFreeAgents = (leagueKey, start = 1) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
         LeagueKey: `${leagueKey}`,
-        start: `${start}`
+        start: `${playerStart}`
       }
     })
       .then(response => response.json())
-      .then(players => dispatch(setPlayers(players)))
+      .then(players => dispatch(setPlayers(players, playerStart)))
       .catch(error => console.log(error));
   };
 };
+

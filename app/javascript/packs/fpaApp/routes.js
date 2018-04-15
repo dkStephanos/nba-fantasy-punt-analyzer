@@ -21,7 +21,7 @@ const Routes = (props) => (
 	    	<Switch>
 	    		<Route path='/auth' component={LoginTransition} />
 	    		<Route path='/leagueSelect' component={LeagueSelect} />
-	    		<Route path='/home' component={HomePage} />
+	    		<Route path='/home/:playerStart' component={HomePage} />
 	    		<Route exact path='/' component={LoginPage} />
 	    	</Switch>
 	    </App>

@@ -1,22 +1,24 @@
 import React from 'react';
 import { Table, Pager } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { getLeagueByKey } from '../actions/league';
 import { getFreeAgents } from '../actions/player';
 import { middleware } from '../middleware/init';
 import PlayerRow from '../components/playerRow';
 
 class HomePage extends React.Component {
-  componentWillMount() {
-  	const leagueKey = middleware.getLeagueKey();
-	//this.props.getLeagueByKey(leagueKey);
-	this.props.getFreeAgents(leagueKey, 26);
+  componentDidMount() {
+  	this.fetchFreeAgentData(this.props.playerStart);
   }
+
+  fetchFreeAgentData = playerStart => {
+  	const leagueKey = middleware.getLeagueKey();
+	this.props.getFreeAgents(leagueKey, playerStart);
+  };
 
   render() {
   	debugger;
-  	let currentRank = 1;
-  	const playerRows = this.props.players.map(player => (
+  	let currentRank = this.props.playerStart;
+  	let playerRows = this.props.players.map(player => (
         <PlayerRow key={player.id} player={player} rank={currentRank++}/>
     ));
     return (
@@ -36,8 +38,8 @@ class HomePage extends React.Component {
 		  </tbody>
 		</Table>
 		<Pager>
-  			<Pager.Item href="#">Previous</Pager.Item>{' '}
-  			<Pager.Item href="#">Next</Pager.Item>
+  			<Pager.Item >Previous</Pager.Item>{' '}
+  			<Pager.Item onClick={() => {this.fetchFreeAgentData(currentRank)}}>Next</Pager.Item>
 		</Pager>
       </div>
     );
@@ -47,8 +49,9 @@ class HomePage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     league: state.leagueReducer.league,
-    players: state.playerReducer.players
+    players: state.playerReducer.players,
+    playerStart: parseInt(ownProps.match.params.playerStart)
   };
 };
 
-export default connect(mapStateToProps, { getLeagueByKey, getFreeAgents })(HomePage);
+export default connect(mapStateToProps, { getFreeAgents })(HomePage);
