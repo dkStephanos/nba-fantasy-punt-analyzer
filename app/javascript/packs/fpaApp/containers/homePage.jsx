@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getLeagueByKey } from '../actions/league';
-import { getPlayers } from '../actions/player';
+import { getFreeAgents } from '../actions/player';
 import { middleware } from '../middleware/init';
 import PlayerRow from '../components/playerRow';
 
@@ -47,4 +47,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { getLeagueByKey, getPlayers })(HomePage);
+export default connect(mapStateToProps, { getLeagueByKey, getFreeAgents })(HomePage);
