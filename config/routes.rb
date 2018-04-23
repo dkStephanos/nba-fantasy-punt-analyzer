@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/auth', to: 'pages#root', format: false
   get '/home/:player_start', to: 'pages#root'
   get '/leagueSelect', to: 'pages#root', format: false
+  get '/teamSelect', to: 'pages#root', format: false
   get '/fetchingPlayers', to: 'pages#root', format: false
 
 

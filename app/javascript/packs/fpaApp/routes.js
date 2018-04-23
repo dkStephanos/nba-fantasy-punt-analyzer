@@ -13,6 +13,7 @@ import LoginTransition from './components/loginTransition';
 
 import PlayerFetchTransition from './containers/playerFetchTransition';
 import LeagueSelect from './containers/leagueSelect';
+import TeamSelect from './containers/teamSelect';
 import HomePage from './containers/homePage';
 
 const Routes = (props) => (
@@ -22,6 +23,7 @@ const Routes = (props) => (
 	    	<Switch>
 	    		<Route path='/auth' component={LoginTransition} />
 	    		<Route path='/leagueSelect' component={LeagueSelect} />
+	    		<Route path='/teamSelect' component={TeamSelect} />
 	    		<Route path='/fetchingPlayers' component={PlayerFetchTransition} />
 	    		<Route path='/home/:playerStart' component={HomePage} />
 	    		<Route exact path='/' component={LoginPage} />
