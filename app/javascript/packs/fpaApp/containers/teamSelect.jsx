@@ -10,17 +10,17 @@ class TeamSelect extends React.Component {
   }
 
   redirectToHomePage = teamKey => {
-    debugger;
-  	//Save teamKey in sessionStorage before redirecting to homePage
+  	//Save teamKey/leagueKey in sessionStorage before redirecting to homePage
+    //teamKey = 'GameID.l.LeagueID.t.TeamID' ... leagueKey = 'GameID.l.LeagueID'
     middleware.setTeamKey(teamKey);
-    //Redirect to home page at start position 0
+    middleware.setLeagueKey(teamKey.split('.').slice(0,3).join('.'))
+    //Redirect fetchingPlayers transition
     window.location.replace(`/fetchingPlayers`);
   };
 
   render() {
     let teams = [];
   	if(this.props.teams) {
-      debugger;
       teams = this.props.teams.map(team => (
       <div className="teamCard" onClick={() => this.redirectToHomePage(team.team_key)}>
         <Team team={team}/>
