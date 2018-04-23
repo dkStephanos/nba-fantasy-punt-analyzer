@@ -9,4 +9,10 @@ class Api::PlayersController < ApplicationController
     free_agents = @yahooApi.free_agents(league_key, start)
     render json: free_agents
   end
+
+  def players
+	league_key = request.headers[:LeagueKey]
+    players = @yahooApi.players(league_key)
+    render json: players
+  end
 end
