@@ -38,4 +38,17 @@ class YahooApi
       players = "Error fetching players data"
     end
   end
+
+  def user_team(team_key)
+    resp = self.class.get(
+      ENV['YAHOO_API_TEAM_URL'] + team_key + "/players/stats",
+      :headers => @headers)
+    respJSON = Hash.from_xml(resp.body).as_json
+    byebug
+    if(respJSON["fantasy_content"]["league"]["players"]["count"].to_i > 1)
+      players = respJSON["fantasy_content"]["league"]["players"]["player"]
+    else
+      players = "Error fetching players data"
+    end
+  end
 end

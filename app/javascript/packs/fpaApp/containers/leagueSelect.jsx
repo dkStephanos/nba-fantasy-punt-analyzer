@@ -17,6 +17,7 @@ class LeagueSelect extends React.Component {
   };
 
   render() {
+    debugger;
   	const leagues = this.props.leagues.map(league => (
       <div className="leagueCard" onClick={() => this.redirectToHomePage(league.league_key)}>
         <League name={league.name} numTeams={league.num_teams} url={league.url}/>
