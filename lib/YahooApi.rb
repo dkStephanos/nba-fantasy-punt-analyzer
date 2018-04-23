@@ -23,7 +23,11 @@ class YahooApi
     else
       leagues = respJSON["fantasy_content"]["users"]["user"]["games"]["game"]["leagues"]["league"].to_json
     end
-    leagues
+    if(leagues.count >= 1)
+      leagues
+    else
+      leagues = "Error fetching league data"
+    end
   end
 
   def free_agents(league_key, start)
@@ -48,7 +52,7 @@ class YahooApi
     if(respJSON["fantasy_content"]["league"]["players"]["count"].to_i > 1)
       players = respJSON["fantasy_content"]["league"]["players"]["player"]
     else
-      players = "Error fetching players data"
+      players = "Error fetching team data"
     end
   end
 end
