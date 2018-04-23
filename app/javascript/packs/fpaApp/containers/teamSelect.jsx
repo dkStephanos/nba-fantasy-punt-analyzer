@@ -6,7 +6,7 @@ import Team from '../components/team';
 
 class TeamSelect extends React.Component {
   componentDidMount() {
-    this.props.getLeagues();
+    this.props.getTeams();
   }
 
   redirectToHomePage = teamKey => {

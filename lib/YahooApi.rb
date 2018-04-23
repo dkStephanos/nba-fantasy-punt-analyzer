@@ -21,7 +21,9 @@ class YahooApi
         end
       end
     else
-      leagues = respJSON["fantasy_content"]["users"]["user"]["games"]["game"]["leagues"]["league"].to_json
+      if(respJSON["fantasy_content"]["users"]["user"]["games"]["game"]["game_key"] == ENV['GAME_ID'])
+          leagues = respJSON["fantasy_content"]["users"]["user"]["games"]["game"]["leagues"]["league"].to_json
+        end
     end
     if(leagues.count >= 1)
       leagues
@@ -57,15 +59,26 @@ class YahooApi
   end
 
   def user_teams
+    teams = []
     resp = self.class.get(
       ENV['YAHOO_API_TEAMS_URL'],
       :headers => @headers)
     respJSON = Hash.from_xml(resp.body).as_json
-    byebug
-    if(respJSON["fantasy_content"]["league"]["players"]["count"].to_i > 1)
-      teams = respJSON["fantasy_content"]["league"]["players"]["player"]
+    if(respJSON["fantasy_content"]["users"]["user"]["teams"]["count"].to_i > 1)
+      respJSON["fantasy_content"]["users"]["user"]["teams"]["team"].each do |team|
+        if(team["team_key"].split('.').first.to_i >= ENV['GAME_ID'].to_i)
+          teams << team.to_json
+        end
+      end
     else
-      teams = "Error fetching team data"
+      if(respJSON["fantasy_content"]["users"]["user"]["teams"]["team"]["team_key"].split('.').first.to_i >= ENV['GAME_ID'].to_i)
+          teams << respJSON["fantasy_content"]["users"]["user"]["teams"]["team"].to_json
+        end
+    end
+    if(teams.count >= 1)
+      teams
+    else
+      teams = "Error fetching league data"
     end
   end
 end
