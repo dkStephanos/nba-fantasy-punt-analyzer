@@ -13,9 +13,7 @@ class PlayerFetchTransition extends Component {
     //Use Player data to rank and sort players collection
   }
 
-  redirectToHomePage = leagueKey => {
-  	//Save leagueKey in sessionStorage before redirecting to homePage
-    middleware.setLeagueKey(leagueKey);
+  redirectToHomePage = () => {
     //Redirect to home page at start position 0
     window.location.replace(`/home/0`);
   };
@@ -31,7 +29,7 @@ class PlayerFetchTransition extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    teamId: state.teamReducer.teamId
+    players: state.playerReducer.players
   };
 };
 
