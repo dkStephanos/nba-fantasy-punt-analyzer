@@ -14,4 +14,14 @@ export default class YahooApiMiddleware {
   	// Gets the leagueKey from session storage to make calls to YahooSports API
   	return sessionStorage.getItem('league_key');
   }
+
+  setTeamKey(teamKey) {
+  	// Sets the teamKey in session storage to make calls to YahooSports API
+  	sessionStorage.setItem('team_key', teamKey);
+  }
+
+  getTeamKey() {
+  	// Gets the teamKey from session storage to make calls to YahooSports API
+  	return sessionStorage.getItem('team_key');
+  }
 }
