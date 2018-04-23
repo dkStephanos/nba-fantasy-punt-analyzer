@@ -6,10 +6,8 @@ import { middleware } from '../middleware/init';
 
 class PlayerFetchTransition extends Component {
   componentDidMount() {
-    //Fetch User's Team stats
+    //Fetch League Players
     this.props.getPlayers(middleware.getLeagueKey());
-    //Fetch League's Available Players stats
-
     //Use Player data to rank and sort players collection
   }
 
