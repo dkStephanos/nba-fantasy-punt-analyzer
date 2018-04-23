@@ -3,7 +3,6 @@ import React from 'react';
 class Team extends React.Component {
 
   render() {
-  	debugger;
     return(
       <div key={this.props.team.team_key}>
         <h3>{this.props.team.name}</h3>

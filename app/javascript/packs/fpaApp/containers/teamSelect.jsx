@@ -14,7 +14,7 @@ class TeamSelect extends React.Component {
   	//Save teamKey in sessionStorage before redirecting to homePage
     middleware.setTeamKey(teamKey);
     //Redirect to home page at start position 0
-    window.location.replace(`/home/0`);
+    window.location.replace(`/fetchingPlayers`);
   };
 
   render() {
