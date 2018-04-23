@@ -17,16 +17,19 @@ class TeamSelect extends React.Component {
   };
 
   render() {
-    debugger;
-  	const teams = this.props.teams.map(team => (
+    let teams = [];
+  	if(this.props.teams) {
+      debugger;
+      teams = this.props.teams.map(team => (
       <div className="teamCard" onClick={() => this.redirectToHomePage(team.team_key)}>
-        <Team name={team.name} numTeams={team.num_teams} url={team.url}/>
+        <Team team={JSON.parse(team)}/>
       </div>
     ));
+    }
 
     return (
       <div className="team-selector">
-      	{teams}
+      	{teams ? teams : ''}
       </div>
     );
   }
@@ -34,7 +37,7 @@ class TeamSelect extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    teams: state.leagueReducer.teams
+    teams: state.teamReducer.teams
   };
 };
 

@@ -25,7 +25,7 @@ class YahooApi
           leagues = respJSON["fantasy_content"]["users"]["user"]["games"]["game"]["leagues"]["league"].to_json
         end
     end
-    if(leagues.count >= 1)
+    if(!leagues.empty?)
       leagues
     else
       leagues = "Error fetching league data"
@@ -75,7 +75,7 @@ class YahooApi
           teams << respJSON["fantasy_content"]["users"]["user"]["teams"]["team"].to_json
         end
     end
-    if(teams.count >= 1)
+    if(!teams.empty?)
       teams
     else
       teams = "Error fetching league data"

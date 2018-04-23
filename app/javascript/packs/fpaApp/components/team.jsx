@@ -6,8 +6,8 @@ class Team extends React.Component {
   	debugger;
     return(
       <div>
-        <h3>{this.props.name}</h3>
-        <a href={this.props.url}>To Team</a>
+        <h3>{this.props.team.name}</h3>
+        <a href={this.props.team.url}>To Team</a>
       </div>
     )
   }
