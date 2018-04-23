@@ -26,6 +26,7 @@ class YahooApi
         end
     end
     if(!leagues.empty?)
+      byebug
       leagues
     else
       leagues = "Error fetching league data"
@@ -67,12 +68,12 @@ class YahooApi
     if(respJSON["fantasy_content"]["users"]["user"]["teams"]["count"].to_i > 1)
       respJSON["fantasy_content"]["users"]["user"]["teams"]["team"].each do |team|
         if(team["team_key"].split('.').first.to_i >= ENV['GAME_ID'].to_i)
-          teams << team.to_json
+          teams << team
         end
       end
     else
       if(respJSON["fantasy_content"]["users"]["user"]["teams"]["team"]["team_key"].split('.').first.to_i >= ENV['GAME_ID'].to_i)
-          teams << respJSON["fantasy_content"]["users"]["user"]["teams"]["team"].to_json
+          teams = respJSON["fantasy_content"]["users"]["user"]["teams"]["team"]
         end
     end
     if(!teams.empty?)

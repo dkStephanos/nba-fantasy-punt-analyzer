@@ -10,6 +10,7 @@ class TeamSelect extends React.Component {
   }
 
   redirectToHomePage = teamKey => {
+    debugger;
   	//Save teamKey in sessionStorage before redirecting to homePage
     middleware.setTeamKey(teamKey);
     //Redirect to home page at start position 0
@@ -22,7 +23,7 @@ class TeamSelect extends React.Component {
       debugger;
       teams = this.props.teams.map(team => (
       <div className="teamCard" onClick={() => this.redirectToHomePage(team.team_key)}>
-        <Team team={JSON.parse(team)}/>
+        <Team team={team}/>
       </div>
     ));
     }
