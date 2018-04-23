@@ -1,13 +1,13 @@
 import { auth } from '../utils/init';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUserTeam } from '../actions/team';
+import { getPlayers } from '../actions/player';
 import { middleware } from '../middleware/init';
 
 class PlayerFetchTransition extends Component {
   componentDidMount() {
     //Fetch User's Team stats
-    this.props.getUserTeam(this.props.teamId);
+    this.props.getPlayers(middleware.getLeagueKey());
     //Fetch League's Available Players stats
 
     //Use Player data to rank and sort players collection
@@ -33,4 +33,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { getUserTeam })(PlayerFetchTransition);
+export default connect(mapStateToProps, { getPlayers })(PlayerFetchTransition);
