@@ -1,6 +1,6 @@
 const initialState = {
   team: {},
-  teamId: ''
+  teams: []
 };
 
 export default (state = initialState, action) => {
@@ -8,6 +8,11 @@ export default (state = initialState, action) => {
     case 'GET_TEAM_SUCCESS':
       return Object.assign({}, state, {
         team: action.team
+      });
+
+    case 'GET_TEAMS_SUCCESS':
+      return Object.assign({}, state, {
+        teams: [...state.teams, ...action.teams]
       });
 
     default:
