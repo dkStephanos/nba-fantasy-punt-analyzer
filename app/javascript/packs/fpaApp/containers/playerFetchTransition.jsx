@@ -17,6 +17,7 @@ class PlayerFetchTransition extends Component {
   };
 
   render() {
+  	debugger;
     return (
       <div className="player-fetch-transition">
       	<h1>Fetching Player/Team Data</h1>
