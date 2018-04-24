@@ -27,5 +27,7 @@ export default playerStatKeys = {
 	25: "FF",
 	26: "MPG",
 	27: "DD",
-	28: "TD"
+	28: "TD",
+	9004003: "FGM/FGA",
+	9007006: "FTM/FTA"
 };
