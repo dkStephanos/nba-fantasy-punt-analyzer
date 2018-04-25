@@ -7,8 +7,9 @@ import { middleware } from '../middleware/init';
 class PlayerFetchTransition extends Component {
   componentDidMount() {
     //Fetch League Players
-    this.props.getPlayers(middleware.getLeagueKey());
+    this.props.getPlayers(middleware.getLeagueKey()).then(console.log("success"))
     //Use Player data to rank and sort players collection
+    debugger;
   }
 
   redirectToHomePage = () => {
@@ -21,6 +22,7 @@ class PlayerFetchTransition extends Component {
     return (
       <div className="player-fetch-transition">
       	<h1>Fetching Player/Team Data</h1>
+      	<p>This could take a sec...</p>
       </div>
     );
   }
