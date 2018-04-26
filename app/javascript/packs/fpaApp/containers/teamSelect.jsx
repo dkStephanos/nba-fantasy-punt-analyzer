@@ -9,7 +9,7 @@ class TeamSelect extends React.Component {
     this.props.getTeams();
   }
 
-  redirectToHomePage = teamKey => {
+  redirectToFetchingPlayers = teamKey => {
   	//Save teamKey/leagueKey in sessionStorage before redirecting to homePage
     //teamKey = 'GameID.l.LeagueID.t.TeamID' ... leagueKey = 'GameID.l.LeagueID'
     middleware.setTeamKey(teamKey);
@@ -22,7 +22,7 @@ class TeamSelect extends React.Component {
     let teams = [];
   	if(this.props.teams) {
       teams = this.props.teams.map(team => (
-      <div className="teamCard" onClick={() => this.redirectToHomePage(team.team_key)}>
+      <div className="teamCard" onClick={() => this.redirectToFetchingPlayers(team.team_key)}>
         <Team team={team}/>
       </div>
     ));
