@@ -62,11 +62,11 @@ class YahooApi
     # Players are returned 25 at a time, so step up getting the top 300 players starting at 0 and add them to an array
     0.step(299, 25) do |n|
       resp = self.class.get(
-        ENV['YAHOO_API_PLAYERS_URL'] + league_key + "/players/stats",
-        :headers => @headers,
-        :query => { start: n, sort: 'OR', status: 'ALL' })
+        ENV['YAHOO_API_PLAYERS_URL'] + league_key + "/players;status=ALL;sort=OR;start=#{n};out=stats,ownership",
+        :headers => @headers)
       # Convert from XML to JSON
       respJSON = Hash.from_xml(resp.body).as_json
+      byebug
        # Checks to make sure we got player data, returning it if so, otherwise an error message
       if(respJSON["fantasy_content"]["league"]["players"]["count"].to_i > 0)
         players += respJSON["fantasy_content"]["league"]["players"]["player"]
