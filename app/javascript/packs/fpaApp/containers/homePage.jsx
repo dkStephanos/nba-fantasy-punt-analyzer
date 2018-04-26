@@ -1,13 +1,13 @@
 import React from 'react';
 import { Table, Pager } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { getFreeAgents } from '../actions/player';
+import { determineCategoryLabels } from '../actions/stat';
 import { middleware } from '../middleware/init';
 import PlayerRow from '../components/playerRow';
 
 class HomePage extends React.Component {
   componentDidMount() {
-  	this.fetchFreeAgentData(this.props.playerStart);
+  	this.determineCategoryLabels(this.props.players);
   }
 
   fetchFreeAgentData = playerStart => {
@@ -17,20 +17,20 @@ class HomePage extends React.Component {
 
   render() {
   	debugger;
+  	let labels = this.props.categoryLabels.map(categoryLabel => (
+  			<th>{categoryLabel.value}</th>
+  		));
   	let currentRank = this.props.playerStart;
   	let playerRows = this.props.players.map(player => (
-        <PlayerRow key={player.id} player={player} rank={currentRank++}/>
-    ));
+        	<PlayerRow key={player.id} player={player} rank={currentRank++}/>
+    	));
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
   		<Table striped bordered responsive hover>
 		  <thead>
 		    <tr>
-		      <th>Rank</th>
-		      <th>Name</th>
-		      <th>Team</th>
-		      <th>Positions</th>
+		      {labels}
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -48,10 +48,10 @@ class HomePage extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    league: state.leagueReducer.league,
     players: state.playerReducer.players,
-    playerStart: parseInt(ownProps.match.params.playerStart)
+    playerStart: parseInt(ownProps.match.params.playerStart),
+    categoryLabels: state.statReducer.categoryLabels
   };
 };
 
-export default connect(mapStateToProps, { getFreeAgents })(HomePage);
+export default connect(mapStateToProps, { determineCategoryLabels })(HomePage);
