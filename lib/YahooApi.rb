@@ -41,22 +41,6 @@ class YahooApi
     end
   end
 
-  def free_agents(league_key, start)
-    # Makes a request for all Free Agents stats from users league, sorted by overall rank
-    resp = self.class.get(
-      ENV['YAHOO_API_PLAYERS_URL'] + league_key + "/players/stats",
-      :headers => @headers,
-      :query => { start: start, sort: 'OR', status: 'FA' })
-    # Convert from XML to JSON
-    respJSON = Hash.from_xml(resp.body).as_json
-    # Checks to make sure we got player data, returning it if so, otherwise an error message
-    if(respJSON["fantasy_content"]["league"]["players"]["count"].to_i > 0)
-      players = respJSON["fantasy_content"]["league"]["players"]["player"]
-    else
-      players = "Error fetching players data"
-    end
-  end
-
   def players(league_key)
     players = []
     # Players are returned 25 at a time, so step up getting the top 300 players starting at 0 and add them to an array

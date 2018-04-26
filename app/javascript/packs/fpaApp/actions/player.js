@@ -26,34 +26,7 @@ const setPlayerRanks = (players) => {
   };
 };
 
-const setFreeAgents = (players, playerStart) => {
-  return {
-    type: 'GET_FREE_AGENTS_SUCCESS',
-    players,
-    playerStart
-  };
-};
-
 // ** Async Actions **
-export const getFreeAgents = (leagueKey, playerStart = 0) => {
-  const token = auth.getToken();
-  return dispatch => {
-    return fetch(`${RAILS_API_URL}/free_agents`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-        LeagueKey: `${leagueKey}`,
-        start: `${playerStart}`
-      }
-    })
-      .then(response => response.json())
-      .then(players => dispatch(setFreeAgents(players, playerStart)))
-      .catch(error => console.log(error));
-  };
-};
-
 export const getPlayers = (leagueKey) => {
   const token = auth.getToken();
   return dispatch => {

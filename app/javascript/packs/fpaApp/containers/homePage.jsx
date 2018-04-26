@@ -10,11 +10,6 @@ class HomePage extends React.Component {
   	this.determineCategoryLabels(this.props.players);
   }
 
-  fetchFreeAgentData = playerStart => {
-  	const leagueKey = middleware.getLeagueKey();
-	this.props.getFreeAgents(leagueKey, playerStart);
-  };
-
   render() {
   	debugger;
   	let labels = this.props.categoryLabels.map(categoryLabel => (
@@ -39,7 +34,7 @@ class HomePage extends React.Component {
 		</Table>
 		<Pager>
   			<Pager.Item >Previous</Pager.Item>{' '}
-  			<Pager.Item onClick={() => {this.fetchFreeAgentData(currentRank)}}>Next</Pager.Item>
+  			<Pager.Item >Next</Pager.Item>
 		</Pager>
       </div>
     );
