@@ -66,7 +66,6 @@ class YahooApi
         :headers => @headers)
       # Convert from XML to JSON
       respJSON = Hash.from_xml(resp.body).as_json
-      byebug
        # Checks to make sure we got player data, returning it if so, otherwise an error message
       if(respJSON["fantasy_content"]["league"]["players"]["count"].to_i > 0)
         players += respJSON["fantasy_content"]["league"]["players"]["player"]

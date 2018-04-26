@@ -17,6 +17,11 @@ export default (state = initialState, action) => {
         players: [...action.players]
       });
 
+    case 'SET_Z_SCORES':
+      return Object.assign({}, state, {
+        players: [...action.players]
+      });
+
     default:
       return state;
   }
