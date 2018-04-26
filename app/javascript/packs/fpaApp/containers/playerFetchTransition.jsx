@@ -1,9 +1,9 @@
-import { auth } from '../utils/init';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPlayers } from '../actions/player';
+import { auth } from '../utils/init';
 import { middleware } from '../middleware/init';
-import { calculateMeans, determineCategoryLabels } from '../actions/stat';
+import { getPlayers } from '../actions/player';
+import { determineCategoryLabels, calculateMeans, calculateStdDeviations } from '../actions/stat';
 
 class PlayerFetchTransition extends Component {
   componentDidMount() {
@@ -13,11 +13,13 @@ class PlayerFetchTransition extends Component {
 
   componentDidUpdate() {
   	if(Object.keys(this.props.means).length === 0) {
-  		this.props.calculateMeans(this.props.players);
   		this.props.determineCategoryLabels(this.props.players[0]);
+  		this.props.calculateMeans(this.props.players);
+  	} else if(Object.keys(this.props.stdDeviations).length === 0) {
+  		debugger;
+  		this.props.calculateStdDeviations(this.props.players, this.props.means);
   	}
   }
-
 
   redirectToHomePage = () => {
     //Redirect to home page at start position 0
@@ -37,9 +39,10 @@ class PlayerFetchTransition extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     players: state.playerReducer.players,
+    categoryLabels: state.statReducer.categoryLabels,
     means: state.statReducer.means,
-    categoryLabels: state.statReducer.categoryLabels
+    stdDeviations: state.statReducer.stdDeviations
   };
 };
 
-export default connect(mapStateToProps, { getPlayers, calculateMeans, determineCategoryLabels })(PlayerFetchTransition);
+export default connect(mapStateToProps, { getPlayers, determineCategoryLabels, calculateMeans, calculateStdDeviations })(PlayerFetchTransition);

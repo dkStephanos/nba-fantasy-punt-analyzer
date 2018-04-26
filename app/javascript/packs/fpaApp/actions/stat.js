@@ -60,12 +60,49 @@ export const calculateMeans = (players) => {
       }
       }
     }
+
     // Then loop through 'means' dividing each total by players.length
     for(let key in means) {
       means[key] = means[key]/players.length;
     }
     // Finally, dispatch the setMeans action which will store the calculated means in state
     dispatch(setMeans(means));
+  };
+};
+
+export const calculateStdDeviations = (players, means) => {
+  return dispatch => {
+    let stdDeviations = {};
+    // Initialize 'stdDeviations' to the sqaured differences of the first player's stats with keys set to the stat_id
+    // and converts values from string to float, ignoring FGM/FGA & FTM/FTA in favor of the weighted percentages
+    // reduces the value to 0 if parseFloat returns NAN
+    for(let i = 0; i < players[0].player_stats.stats.stat.length; i++) {
+      if(players[0].player_stats.stats.stat[i].stat_id === "9004003" || players[0].player_stats.stats.stat[i].stat_id === "9007006") {
+        // do nothing
+      } else {
+        stdDeviations[players[0].player_stats.stats.stat[i].stat_id] = Math.pow((parseFloat(players[0].player_stats.stats.stat[i].value) || 0) - means[players[0].player_stats.stats.stat[i].stat_id], 2);
+      }
+    }
+    debugger;
+    // Then step through the rest of the players, adding their squared differences to the 'stdDeviations'
+    for(let k = 1; k < players.length; k++) {
+      for(let j = 0; j < players[k].player_stats.stats.stat.length; j++) {
+        if(players[k].player_stats.stats.stat[j].stat_id === "9004003" || players[k].player_stats.stats.stat[j].stat_id === "9007006") {
+          // do nothing
+        } else {
+          stdDeviations[players[k].player_stats.stats.stat[j].stat_id] += Math.pow((parseFloat(players[k].player_stats.stats.stat[j].value) || 0) - means[players[k].player_stats.stats.stat[j].stat_id], 2);
+        }
+      }
+    }
+    debugger;
+    // Then loop through 'stdDeviations' dividing each total by players.length which gives us the variance
+    // taking the square root of that gives us the standard deviation, which is stored in 'stdDeviations'
+    for(let key in stdDeviations) {
+      stdDeviations[key] = Math.sqrt(stdDeviations[key]/players.length);
+    }
+    debugger;
+    // Finally, dispatch the setstdDeviations action which will store the calculated stdDeviations in state
+    dispatch(setStdDeviations(stdDeviations));
   };
 };
 
