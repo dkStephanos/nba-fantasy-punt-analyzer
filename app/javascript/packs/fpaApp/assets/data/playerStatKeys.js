@@ -1,4 +1,4 @@
-export default playerStatKeys = {
+export const playerStatKeys = {
 	"0": "GP",
 	"1": "GS",
 	"2": "MIN",

@@ -4,12 +4,14 @@ import thunk from 'redux-thunk';
 import playerReducer from './reducers/playerReducer';
 import leagueReducer from './reducers/leagueReducer';
 import teamReducer from './reducers/teamReducer';
+import statReducer from './reducers/statReducer';
 
 
 const reducers = combineReducers({
   playerReducer,
   leagueReducer,
-  teamReducer
+  teamReducer,
+  statReducer
 });
 
 const middleware = [thunk];

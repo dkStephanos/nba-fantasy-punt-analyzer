@@ -5,7 +5,7 @@ const RAILS_API_URL = process.env.RAILS_API_URL;
 const gameId = process.env.GAME_ID;
 
 // ** Action Creators **
-const setPlayers = (players, playerStart) => {
+const setPlayers = (players) => {
   return {
     type: 'GET_PLAYERS_SUCCESS',
     players
