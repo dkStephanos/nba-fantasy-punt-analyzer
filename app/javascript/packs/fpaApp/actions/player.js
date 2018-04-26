@@ -19,6 +19,13 @@ const setZScores = (players) => {
   };
 };
 
+const setPlayerRanks = (players) => {
+  return {
+    type: 'SET_PLAYER_RANKS',
+    players
+  };
+};
+
 const setFreeAgents = (players, playerStart) => {
   return {
     type: 'GET_FREE_AGENTS_SUCCESS',
@@ -68,18 +75,41 @@ export const getPlayers = (leagueKey) => {
 export const calculateZScores = (players, means, stdDeviations) => {
   return dispatch => {
     // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the weighted percentages
-    // reduces the value to 0 if parseFloat returns NAN, then calculates the z-Score and stores it under the key 'z-Score'
-    for(let i = 1; i < players.length; i++) {
+    // reduces the value to 0 if parseFloat returns NAN, then calculates the z-Score and stores it under the key 'zScore'
+    for(let i = 0; i < players.length; i++) {
       for(let j = 0; j < players[i].player_stats.stats.stat.length; j++) {
         if(players[i].player_stats.stats.stat[j].stat_id === "9004003" || players[i].player_stats.stats.stat[j].stat_id === "9007006") {
           // do nothing
         } else {
-          players[i].player_stats.stats.stat[j]['z-Score'] = ((parseFloat(players[i].player_stats.stats.stat[j].value) || 0) - means[players[i].player_stats.stats.stat[j].stat_id]) / stdDeviations[players[i].player_stats.stats.stat[j].stat_id];
+          players[i].player_stats.stats.stat[j]['zScore'] = ((parseFloat(players[i].player_stats.stats.stat[j].value) || 0) - means[players[i].player_stats.stats.stat[j].stat_id]) / stdDeviations[players[i].player_stats.stats.stat[j].stat_id];
         }
       }
     }
-    debugger;
     // Finally, dispatch the setZScores action which will store the new player array in state
     dispatch(setZScores(players));
+  };
+};
+
+export const calculatePlayerRanks = (players) => {
+  return dispatch => {
+    // Initialize rank to 0
+    let rank = 0;
+    // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the weighted percentages
+    // reduces the value to 0 if parseFloat returns NAN, then calculates the z-Score and stores it under the key 'z-Score'
+    for(let i = 0; i < players.length; i++) {
+      // Reset rank for each player
+      rank = 0;
+      for(let j = 0; j < players[i].player_stats.stats.stat.length; j++) {
+        if(players[i].player_stats.stats.stat[j].stat_id === "9004003" || players[i].player_stats.stats.stat[j].stat_id === "9007006") {
+          // do nothing
+        } else {
+          rank += players[i].player_stats.stats.stat[j].zScore;
+        }
+      }
+      // Once we've added all z-Scores, store the value of rank in the player object under the key 'rank'
+      players[i].rank = rank;
+    }
+    // Finally, dispatch the setZScores action which will store the new player array in state
+    dispatch(setPlayerRanks(players));
   };
 };

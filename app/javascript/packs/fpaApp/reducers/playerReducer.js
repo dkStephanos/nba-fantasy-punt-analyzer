@@ -22,6 +22,11 @@ export default (state = initialState, action) => {
         players: [...action.players]
       });
 
+    case 'SET_PLAYER_RANKS':
+      return Object.assign({}, state, {
+        players: [...action.players]
+      });
+
     default:
       return state;
   }

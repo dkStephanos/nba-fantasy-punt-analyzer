@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { auth } from '../utils/init';
 import { middleware } from '../middleware/init';
-import { getPlayers, calculateZScores } from '../actions/player';
+import { getPlayers, calculateZScores, calculatePlayerRanks } from '../actions/player';
 import { calculateMeans, calculateStdDeviations } from '../actions/stat';
 
 class PlayerFetchTransition extends Component {
   componentDidMount() {
   	// Initializes boolean to determine when it is safe to calculate z-Scores
-  	let shouldCalculateZScores = false;
     // Fetch League Players
     this.props.getPlayers(middleware.getLeagueKey());
   }
@@ -23,16 +22,15 @@ class PlayerFetchTransition extends Component {
   	} else if(Object.keys(this.props.stdDeviations).length === 0) {
   		// Once we have that, we can calculate the standard deviation for each statistical category 
   		this.props.calculateStdDeviations(this.props.players, this.props.means);
-  		shouldCalculateZScores = true;
-  	} else if(shouldCalculateZScores) {
+  	} else if(!Object.keys(this.props.players[0].player_stats.stats.stat[5]).includes("zScore")) {
   		// Then, once we have the standard deviations, we can calculate the players z-Scores
   		this.props.calculateZScores(this.props.players, this.props.means, this.props.stdDeviations);
-  		shouldCalculateZScores = false;
-  	} else if(!Object.keys(this.props.players[0]).includes("Rank")) {
+  	} else if(!Object.keys(this.props.players[0]).includes("rank")) {
   		// Last step, once we have the z-Scores for the players, we can calculate their rank
+  		this.props.calculatePlayerRanks(this.props.players);
   	} else {
   		// Finally, if we got this far, we have all the data how we need it, so redirect to the home page
-  		//this.redirectToHomePage();
+  		this.redirectToHomePage();
   	}
   }
 
@@ -59,4 +57,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { getPlayers, calculateZScores, calculateMeans, calculateStdDeviations })(PlayerFetchTransition);
+export default connect(mapStateToProps, { getPlayers, calculateZScores, calculatePlayerRanks, calculateMeans, calculateStdDeviations })(PlayerFetchTransition);
