@@ -13,6 +13,13 @@ const setMeans = (means) => {
   };
 };
 
+const setStdDeviations = (stdDeviations) => {
+  return {
+    type: 'SET_STD_DEVIATIONS',
+    stdDeviations
+  };
+};
+
 const setCategoryLabels = (categoryLabels) => {
   return {
     type: 'SET_CATEGORY_LABELS',
