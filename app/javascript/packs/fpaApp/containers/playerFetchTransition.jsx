@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { auth } from '../utils/init';
 import { middleware } from '../middleware/init';
 import { getPlayers, calculateZScores } from '../actions/player';
-import { determineCategoryLabels, calculateMeans, calculateStdDeviations } from '../actions/stat';
+import { calculateMeans, calculateStdDeviations } from '../actions/stat';
 
 class PlayerFetchTransition extends Component {
   componentDidMount() {
@@ -19,7 +19,6 @@ class PlayerFetchTransition extends Component {
   componentDidUpdate() {
   	// First, we need the category labels and the means for each statistical category
   	if(Object.keys(this.props.means).length === 0) {
-  		this.props.determineCategoryLabels(this.props.players[0]);
   		this.props.calculateMeans(this.props.players);
   	} else if(Object.keys(this.props.stdDeviations).length === 0) {
   		// Once we have that, we can calculate the standard deviation for each statistical category 
@@ -55,10 +54,9 @@ class PlayerFetchTransition extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     players: state.playerReducer.players,
-    categoryLabels: state.statReducer.categoryLabels,
     means: state.statReducer.means,
     stdDeviations: state.statReducer.stdDeviations
   };
 };
 
-export default connect(mapStateToProps, { getPlayers, calculateZScores, determineCategoryLabels, calculateMeans, calculateStdDeviations })(PlayerFetchTransition);
+export default connect(mapStateToProps, { getPlayers, calculateZScores, calculateMeans, calculateStdDeviations })(PlayerFetchTransition);
