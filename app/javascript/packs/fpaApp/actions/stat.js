@@ -83,7 +83,6 @@ export const calculateStdDeviations = (players, means) => {
         stdDeviations[players[0].player_stats.stats.stat[i].stat_id] = Math.pow((parseFloat(players[0].player_stats.stats.stat[i].value) || 0) - means[players[0].player_stats.stats.stat[i].stat_id], 2);
       }
     }
-    debugger;
     // Then step through the rest of the players, adding their squared differences to the 'stdDeviations'
     for(let k = 1; k < players.length; k++) {
       for(let j = 0; j < players[k].player_stats.stats.stat.length; j++) {
@@ -94,13 +93,11 @@ export const calculateStdDeviations = (players, means) => {
         }
       }
     }
-    debugger;
     // Then loop through 'stdDeviations' dividing each total by players.length which gives us the variance
     // taking the square root of that gives us the standard deviation, which is stored in 'stdDeviations'
     for(let key in stdDeviations) {
       stdDeviations[key] = Math.sqrt(stdDeviations[key]/players.length);
     }
-    debugger;
     // Finally, dispatch the setstdDeviations action which will store the calculated stdDeviations in state
     dispatch(setStdDeviations(stdDeviations));
   };
