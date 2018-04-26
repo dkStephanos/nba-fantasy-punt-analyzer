@@ -7,7 +7,7 @@ import PlayerRow from '../components/playerRow';
 
 class HomePage extends React.Component {
   componentDidMount() {
-  	this.determineCategoryLabels(this.props.players);
+  	this.props.determineCategoryLabels(this.props.players);
   }
 
   render() {
