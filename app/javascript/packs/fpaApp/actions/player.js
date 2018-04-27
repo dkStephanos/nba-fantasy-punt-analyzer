@@ -97,10 +97,10 @@ export const calculatePlayerRanks = (players) => {
 
 export const sortPlayersByRank = (players) => {
   return dispatch => {
-    // Initialize rank to 0
+    // Sort players based on the calculated rank
     players.sort((a,b) => {return (a.rank < b.rank) ? 1 : ((b.rank < a.rank) ? -1 : 0);} ); 
 
-    // Finally, dispatch the setZScores action which will store the new player array in state
+    // Finally, store the sorted players array in state
     dispatch(sortPlayers(players));
   };
 };
