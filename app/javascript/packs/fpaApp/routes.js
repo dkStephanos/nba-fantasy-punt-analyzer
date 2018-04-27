@@ -5,11 +5,14 @@ import {
 } from 'react-router-dom';
 import { Switch } from 'react-router';
 import { Provider } from 'react-redux';
-import store from './store.js';
+import { persistor, store } from './store.js';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+
 
 import App from './components/app/App';
 import LoginPage from './components/loginPage';
 import LoginTransition from './components/loginTransition';
+import LoadingTransition from './components/app/loadingTransition';
 
 import PlayerFetchTransition from './containers/playerFetchTransition';
 import LeagueSelect from './containers/leagueSelect';
@@ -20,14 +23,16 @@ const Routes = (props) => (
 	<Provider store={store} >  
 	  <Router>
 	    <App>
-	    	<Switch>
-	    		<Route path='/auth' component={LoginTransition} />
-	    		<Route path='/leagueSelect' component={LeagueSelect} />
-	    		<Route path='/teamSelect' component={TeamSelect} />
-	    		<Route path='/fetchingPlayers' component={PlayerFetchTransition} />
-	    		<Route path='/home/:playerStart' component={HomePage} />
-	    		<Route exact path='/' component={LoginPage} />
-	    	</Switch>
+	    	<PersistGate loading={<LoadingTransition />} persistor={persistor}>
+		    	<Switch>
+		    		<Route path='/auth' component={LoginTransition} />
+		    		<Route path='/leagueSelect' component={LeagueSelect} />
+		    		<Route path='/teamSelect' component={TeamSelect} />
+		    		<Route path='/fetchingPlayers' component={PlayerFetchTransition} />
+		    		<Route path='/home/:playerStart' component={HomePage} />
+		    		<Route exact path='/' component={LoginPage} />
+		    	</Switch>
+	    	</PersistGate>
 	    </App>
 	  </Router>
 	</Provider>
