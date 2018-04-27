@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { auth } from '../utils/init';
 import { middleware } from '../middleware/init';
-import { getPlayers, calculateZScores, calculatePlayerRanks } from '../actions/player';
+import { getPlayers, calculateFgAndFtImpacts, calculateZScores, calculatePlayerRanks } from '../actions/player';
 import { calculateMeans, calculateStdDeviations } from '../actions/stat';
 
 class PlayerFetchTransition extends Component {
@@ -14,12 +14,15 @@ class PlayerFetchTransition extends Component {
 
   // Used for a series of data fetches. Each if statement checks if that action has already occured
   // so we don't repeat actions. As a result, one if statement worth of actions occur per lifecycle event
-  // seqentially until all fetches are done and we are redirected to the home page
+  // sequentially until all fetches are done and we are redirected to the home page
   componentDidUpdate() {
   	// First, we need the category labels and the means for each statistical category
   	if(Object.keys(this.props.means).length === 0) {
   		this.props.calculateMeans(this.props.players);
-  	} else if(Object.keys(this.props.stdDeviations).length === 0) {
+  	} else if(!this.props.players[0].player_stats.stats.stat[this.props.players[0].player_stats.stats.stat.length - 1].stat_id === "1008") {
+      // After we have the means, we can determine the FG and FT impacts for each player
+      this.props.calculateFgAndFtImpacts(this.props.players, this.props.means);
+    } else if(Object.keys(this.props.stdDeviations).length === 0) {
   		// Once we have that, we can calculate the standard deviation for each statistical category 
   		this.props.calculateStdDeviations(this.props.players, this.props.means);
   	} else if(!Object.keys(this.props.players[0].player_stats.stats.stat[5]).includes("zScore")) {
@@ -58,4 +61,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { getPlayers, calculateZScores, calculatePlayerRanks, calculateMeans, calculateStdDeviations })(PlayerFetchTransition);
+export default connect(mapStateToProps, { getPlayers, calculateFgAndFtImpacts, calculateZScores, calculatePlayerRanks, calculateMeans, calculateStdDeviations })(PlayerFetchTransition);

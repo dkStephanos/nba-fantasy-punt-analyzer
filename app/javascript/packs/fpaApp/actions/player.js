@@ -12,6 +12,13 @@ const setPlayers = (players) => {
   };
 };
 
+const setFgAndFtImpacts = (players) => {
+  return {
+    type: 'SET_FG_AND_FT_IMPACTS',
+    players
+  };
+};
+
 const setZScores = (players) => {
   return {
     type: 'SET_Z_SCORES',
@@ -53,6 +60,45 @@ export const getPlayers = (leagueKey) => {
 };
 
 // ** Stat Caluculations **
+export const calculateFgAndFtImpacts = (players, means) => {
+  return dispatch => {
+    // Initialize variables to store the stats we need for the calculation
+    let fgPercentage, ftPercentage, fgAttempted, ftAttempted, fgImpact, ftImpact;
+    let averageFgPercentage = means[3]/means[4];
+    let averageFtPercentage = means[6]/means[7];
+
+    // Loop through players, looping through each player's individual stats collecting their fg/ft percentages and attempts
+    for(let i = 0; i < players.length; i++) {
+      for(let j = 0; j < players[i].player_stats.stats.stat.length; j++) {
+        switch(players[i].player_stats.stats.stat[j].stat_id) {
+          case '5':
+            fgPercentage = parseFloat(players[i].player_stats.stats.stat[j].value) || 0;
+            break;
+          case '8':
+            ftPercentage = parseFloat(players[i].player_stats.stats.stat[j].value) || 0;
+            break;
+          case '9004003':
+            fgAttempted = parseFloat(players[i].player_stats.stats.stat[j].value.split('/')[1]) || 0;
+            break;
+          case '9007006':
+            ftAttempted = parseFloat(players[i].player_stats.stats.stat[j].value.split('/')[1]) || 0;
+            break;
+          default:
+        }
+      };
+      // Once we have the data we need, calculate fg/ft impact, and push it to the stat array as an object
+      // with the correct statKey for output and value we calculated
+      fgImpact = (fgPercentage - averageFgPercentage) * fgAttempted;
+      players[i].player_stats.stats.stat.push({ stat_id: "1005", value: fgImpact })
+      ftImpact = (ftPercentage - averageFtPercentage) * ftAttempted;
+      players[i].player_stats.stats.stat.push({ stat_id: "1008", value: ftImpact })
+    }
+    debugger;
+    // Finally, dispatch the setZScores action which will store the new player array in state
+    dispatch(setFgAndFtImpacts(players));
+  };
+};
+
 export const calculateZScores = (players, means, stdDeviations) => {
   return dispatch => {
     // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the weighted percentages

@@ -30,6 +30,6 @@ export const playerStatKeys = {
 	"28": "TD",
 	"9004003": "FGM/FGA",
 	"9007006": "FTM/FTA",
-	"1005": "WFG%",
-	"1008": "WFT%"
+	"1005": "FGI",
+	"1008": "FTI"
 };
