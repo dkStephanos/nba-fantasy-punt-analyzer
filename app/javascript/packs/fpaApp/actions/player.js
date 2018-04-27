@@ -79,8 +79,9 @@ export const calculatePlayerRanks = (players) => {
           rank += players[i].player_stats.stats.stat[j].zScore;
         }
       }
-      // Once we've added all z-Scores, store the value of rank in the player object under the key 'rank'
-      players[i].rank = rank;
+      // Once we've added all z-Scores, divide by the length to get the average zScore
+      // and then store that result in the player object under the key 'rank'
+      players[i].rank = rank / players[i].player_stats.stats.stat.length;
     }
     // Finally, dispatch the setZScores action which will store the new player array in state
     dispatch(setPlayerRanks(players));

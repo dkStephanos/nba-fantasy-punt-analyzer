@@ -29,6 +29,7 @@ class PlayerFetchTransition extends Component {
   		// Last step, once we have the z-Scores for the players, we can calculate their rank
   		this.props.calculatePlayerRanks(this.props.players);
   	} else {
+      debugger;
   		// Finally, if we got this far, we have all the data how we need it, so redirect to the home page
   		this.redirectToHomePage();
   	}
