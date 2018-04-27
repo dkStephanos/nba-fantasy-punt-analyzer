@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
 
     case 'GET_TEAMS_SUCCESS':
       return Object.assign({}, state, {
-        teams: [...state.teams, ...action.teams]
+        teams: action.teams
       });
 
     default:
