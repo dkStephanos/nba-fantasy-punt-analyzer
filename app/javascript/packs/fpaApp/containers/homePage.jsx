@@ -7,13 +7,13 @@ import PlayerRow from '../components/playerRow';
 
 class HomePage extends React.Component {
   componentDidMount() {
-  	this.props.determineCategoryLabels(this.props.players);
+  	this.props.determineCategoryLabels(this.props.players[0]);
   }
 
   render() {
   	debugger;
   	let labels = this.props.categoryLabels.map(categoryLabel => (
-  			<th>{categoryLabel.value}</th>
+  			<th>{categoryLabel}</th>
   		));
   	let currentRank = this.props.playerStart;
   	let playerRows = this.props.players.map(player => (
