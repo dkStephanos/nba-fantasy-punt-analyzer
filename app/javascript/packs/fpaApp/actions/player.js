@@ -52,6 +52,7 @@ export const getPlayers = (leagueKey) => {
   };
 };
 
+// ** Stat Caluculations **
 export const calculateZScores = (players, means, stdDeviations) => {
   return dispatch => {
     // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the weighted percentages
