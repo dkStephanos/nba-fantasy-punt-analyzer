@@ -19,6 +19,11 @@ export default (state = initialState, action) => {
         players: [...action.players]
       });
 
+    case 'SORT_PLAYERS_SUCCESS':
+      return Object.assign({}, state, {
+        players: [...action.players]
+      });
+
     default:
       return state;
   }

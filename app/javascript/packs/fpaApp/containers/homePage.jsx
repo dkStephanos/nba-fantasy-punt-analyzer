@@ -2,12 +2,14 @@ import React from 'react';
 import { Table, Pager } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { determineCategoryLabels } from '../actions/stat';
+import { sortPlayersByRank } from '../actions/player';
 import { middleware } from '../middleware/init';
 import PlayerRow from '../components/playerRow';
 
 class HomePage extends React.Component {
   componentDidMount() {
   	this.props.determineCategoryLabels(this.props.players[0]);
+  	this.props.sortPlayersByRank(this.props.players);
   }
 
   render() {
@@ -15,7 +17,8 @@ class HomePage extends React.Component {
   	let labels = this.props.categoryLabels.map(categoryLabel => (
   			<th>{categoryLabel}</th>
   		));
-  	let currentRank = this.props.playerStart;
+  	// Initializes currentRank to be incremented when creating PlayerRow's
+  	let currentRank = this.props.playerStart + 1;
   	let playerRows = this.props.players.map(player => (
         	<PlayerRow key={player.id} player={player} rank={currentRank++}/>
     	));
@@ -49,4 +52,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { determineCategoryLabels })(HomePage);
+export default connect(mapStateToProps, { determineCategoryLabels, sortPlayersByRank })(HomePage);

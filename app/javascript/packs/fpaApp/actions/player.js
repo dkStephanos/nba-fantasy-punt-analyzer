@@ -26,6 +26,13 @@ const setPlayerRanks = (players) => {
   };
 };
 
+const sortPlayers = (players) => {
+  return {
+    type: 'SORT_PLAYERS_SUCCESS',
+    players
+  };
+};
+
 // ** Async Actions **
 export const getPlayers = (leagueKey) => {
   const token = auth.getToken();
@@ -85,5 +92,15 @@ export const calculatePlayerRanks = (players) => {
     }
     // Finally, dispatch the setZScores action which will store the new player array in state
     dispatch(setPlayerRanks(players));
+  };
+};
+
+export const sortPlayersByRank = (players) => {
+  return dispatch => {
+    // Initialize rank to 0
+    players.sort((a,b) => {return (a.rank < b.rank) ? 1 : ((b.rank < a.rank) ? -1 : 0);} ); 
+
+    // Finally, dispatch the setZScores action which will store the new player array in state
+    dispatch(sortPlayers(players));
   };
 };
