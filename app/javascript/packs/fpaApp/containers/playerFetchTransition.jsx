@@ -16,12 +16,13 @@ class PlayerFetchTransition extends Component {
   // so we don't repeat actions. As a result, one if statement worth of actions occur per lifecycle event
   // sequentially until all fetches are done and we are redirected to the home page
   componentDidUpdate() {
-  	// First, we need the category labels and the means for each statistical category
-  	if(Object.keys(this.props.means).length === 0) {
-  		this.props.calculateMeans(this.props.players);
-  	} else if(!this.props.players[0].player_stats.stats.stat[this.props.players[0].player_stats.stats.stat.length - 1].stat_id === "1008") {
-      // After we have the means, we can determine the FG and FT impacts for each player
-      this.props.calculateFgAndFtImpacts(this.props.players, this.props.means);
+  	// First, we need the FG and FT impacts for each player
+  	if(this.props.players[0].player_stats.stats.stat[this.props.players[0].player_stats.stats.stat.length - 1].stat_id !== "1008") {
+  		this.props.calculateFgAndFtImpacts(this.props.players, this.props.means);
+  	} else if(Object.keys(this.props.means).length === 0) {
+      // After we have the FG/FT impacts, we can determine means for each player's statistical categories 
+      debugger;
+      this.props.calculateMeans(this.props.players);
     } else if(Object.keys(this.props.stdDeviations).length === 0) {
   		// Once we have that, we can calculate the standard deviation for each statistical category 
   		this.props.calculateStdDeviations(this.props.players, this.props.means);

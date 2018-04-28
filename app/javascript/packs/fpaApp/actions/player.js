@@ -62,6 +62,42 @@ export const getPlayers = (leagueKey) => {
 // ** Stat Caluculations **
 export const calculateFgAndFtImpacts = (players, means) => {
   return dispatch => {
+    // Initialize means object to store the average FGA, FGM, FTA and FTM
+    let means = {};
+
+    // Get the values for the first player
+    for(let i = 0; i < players[0].player_stats.stats.stat.length; i++) {
+      if(players[0].player_stats.stats.stat[i].stat_id === "9004003") {
+        means["3"] = parseFloat(players[0].player_stats.stats.stat[i].value.split('/')[0]) || 0;
+        means["4"] = parseFloat(players[0].player_stats.stats.stat[i].value.split('/')[1]) || 0;
+      } else if(players[0].player_stats.stats.stat[i].stat_id === "9007006") {
+        means["6"] = parseFloat(players[0].player_stats.stats.stat[i].value.split('/')[0]) || 0;
+        means["7"] = parseFloat(players[0].player_stats.stats.stat[i].value.split('/')[1]) || 0;
+      } else {
+        // do nothing
+      }
+    }
+
+    // Then step through the rest of the players, adding their stats to the 'mean'
+    for(let k = 1; k < players.length; k++) {
+      for(let j = 0; j < players[k].player_stats.stats.stat.length; j++) {
+        if(players[k].player_stats.stats.stat[j].stat_id === "9004003") {
+          means["3"] += parseFloat(players[k].player_stats.stats.stat[j].value.split('/')[0]) || 0;
+          means["4"] += parseFloat(players[k].player_stats.stats.stat[j].value.split('/')[1]) || 0;
+        } else if(players[0].player_stats.stats.stat[j].stat_id === "9007006") {
+          means["6"] += parseFloat(players[k].player_stats.stats.stat[j].value.split('/')[0]) || 0;
+          means["7"] += parseFloat(players[k].player_stats.stats.stat[j].value.split('/')[1]) || 0;
+        } else {
+          // do nothing
+        }
+      }
+    }
+
+    // Then loop through 'means' dividing each total by players.length
+    for(let key in means) {
+      means[key] = means[key]/players.length;
+    }
+
     // Initialize variables to store the stats we need for the calculation
     let fgPercentage, ftPercentage, fgAttempted, ftAttempted, fgImpact, ftImpact;
     let averageFgPercentage = means[3]/means[4];
@@ -88,12 +124,11 @@ export const calculateFgAndFtImpacts = (players, means) => {
       };
       // Once we have the data we need, calculate fg/ft impact, and push it to the stat array as an object
       // with the correct statKey for output and value we calculated
-      fgImpact = (fgPercentage - averageFgPercentage) * fgAttempted;
+      fgImpact = Number(((fgPercentage - averageFgPercentage) * fgAttempted).toFixed(3));
       players[i].player_stats.stats.stat.push({ stat_id: "1005", value: fgImpact })
-      ftImpact = (ftPercentage - averageFtPercentage) * ftAttempted;
+      ftImpact = Number(((ftPercentage - averageFtPercentage) * ftAttempted).toFixed(3));
       players[i].player_stats.stats.stat.push({ stat_id: "1008", value: ftImpact })
     }
-    debugger;
     // Finally, dispatch the setZScores action which will store the new player array in state
     dispatch(setFgAndFtImpacts(players));
   };

@@ -31,16 +31,12 @@ const setCategoryLabels = (categoryLabels) => {
 export const calculateMeans = (players) => {
   return dispatch => {
     let means = {};
-    // Initialize means to the stats of the first player with keys set to the stat_id
-    // and converts values from string to float, splitting FGM/FGA & FTM/FTA into seperate categories
+    // Initialize means to the stats of the first player with keys set to the stat_id 
+    // Ignore FGA/FGM and FTA/FTM, those values are only relevant to FG/FT impact,
     // stores the value 0 if parseFloat returns NAN
     for(let i = 0; i < players[0].player_stats.stats.stat.length; i++) {
-      if(players[0].player_stats.stats.stat[i].stat_id === "9004003") {
-        means["3"] = parseFloat(players[0].player_stats.stats.stat[i].value.split('/')[0]) || 0;
-        means["4"] = parseFloat(players[0].player_stats.stats.stat[i].value.split('/')[1]) || 0;
-      } else if(players[0].player_stats.stats.stat[i].stat_id === "9007006") {
-        means["6"] = parseFloat(players[0].player_stats.stats.stat[i].value.split('/')[0]) || 0;
-        means["7"] = parseFloat(players[0].player_stats.stats.stat[i].value.split('/')[1]) || 0;
+      if(players[0].player_stats.stats.stat[i].stat_id === "9004003" || players[0].player_stats.stats.stat[i].stat_id === "9007006") {
+        // do nothing
       } else {
         means[players[0].player_stats.stats.stat[i].stat_id] = parseFloat(players[0].player_stats.stats.stat[i].value) || 0;
       }
@@ -49,12 +45,8 @@ export const calculateMeans = (players) => {
     // Then step through the rest of the players, adding their stats to the 'mean'
     for(let k = 1; k < players.length; k++) {
       for(let j = 0; j < players[k].player_stats.stats.stat.length; j++) {
-        if(players[k].player_stats.stats.stat[j].stat_id === "9004003") {
-        means["3"] += parseFloat(players[k].player_stats.stats.stat[j].value.split('/')[0]) || 0;
-        means["4"] += parseFloat(players[k].player_stats.stats.stat[j].value.split('/')[1]) || 0;
-      } else if(players[0].player_stats.stats.stat[j].stat_id === "9007006") {
-        means["6"] += parseFloat(players[k].player_stats.stats.stat[j].value.split('/')[0]) || 0;
-        means["7"] += parseFloat(players[k].player_stats.stats.stat[j].value.split('/')[1]) || 0;
+        if(players[k].player_stats.stats.stat[j].stat_id === "9004003" || players[k].player_stats.stats.stat[j].stat_id === "9007006") {
+        // do nothing
       } else {
         means[players[k].player_stats.stats.stat[j].stat_id] += parseFloat(players[k].player_stats.stats.stat[j].value) || 0;
       }
