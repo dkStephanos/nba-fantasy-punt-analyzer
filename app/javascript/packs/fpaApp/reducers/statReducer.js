@@ -1,7 +1,10 @@
 const initialState = {
   means: {},
   stdDeviations: {},
-  categoryLabels: []
+  categoryLabels: [],
+  filteredMeans: {},
+  filteredStdDeviations: {},
+  filteredCategoryLabels: []
 };
 
 export default (state = initialState, action) => {
