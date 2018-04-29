@@ -136,7 +136,7 @@ export const calculateFgAndFtImpacts = (players, means) => {
 
 export const calculateZScores = (players, means, stdDeviations) => {
   return dispatch => {
-    // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the weighted percentages
+    // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of their impacts
     // reduces the value to 0 if parseFloat returns NAN, then calculates the z-Score and stores it under the key 'zScore'
     for(let i = 0; i < players.length; i++) {
       for(let j = 0; j < players[i].player_stats.stats.stat.length; j++) {
@@ -156,8 +156,8 @@ export const calculatePlayerRanks = (players) => {
   return dispatch => {
     // Initialize rank to 0
     let rank = 0;
-    // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the weighted percentages
-    // reduces the value to 0 if parseFloat returns NAN, then calculates the z-Score and stores it under the key 'z-Score'
+    // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the impacts
+    // reduces the value to 0 if parseFloat returns NAN, then adds the value to the player's rank
     for(let i = 0; i < players.length; i++) {
       // Reset rank for each player
       rank = 0;
@@ -172,7 +172,7 @@ export const calculatePlayerRanks = (players) => {
       // and then store that result in the player object under the key 'rank'
       players[i].rank = rank / players[i].player_stats.stats.stat.length;
     }
-    // Finally, dispatch the setZScores action which will store the new player array in state
+    // Finally, dispatch the setPlayerRanks action which will store the new player array in state
     dispatch(setPlayerRanks(players));
   };
 };

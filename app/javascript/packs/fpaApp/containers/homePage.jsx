@@ -13,7 +13,6 @@ class HomePage extends React.Component {
   }
 
   render() {
-  	debugger;
   	let labels = this.props.categoryLabels.map(categoryLabel => (
   			<th>{categoryLabel}</th>
   		));

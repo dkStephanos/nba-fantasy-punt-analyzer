@@ -43,7 +43,7 @@ class YahooApi
 
   def players(league_key)
     players = []
-    # Players are returned 25 at a time, so step up getting the top 300 players starting at 0 and add them to an array
+    # Players are returned 25 at a time, so step up getting the top 50 players starting at 0 and add them to an array
     0.step(25, 25) do |n|
       resp = self.class.get(
         ENV['YAHOO_API_PLAYERS_URL'] + league_key + "/players;status=ALL;sort=OR;start=#{n};out=stats,ownership",
