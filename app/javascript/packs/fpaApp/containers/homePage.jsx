@@ -15,6 +15,10 @@ class HomePage extends React.Component {
   	this.props.sortPlayersByRank(this.props.players);
   }
 
+  handleApplyFilters = categories => {
+  	debugger;
+  }
+
   render() {
   	// Perhaps move this to a sub-component
   	let labels = this.props.categoryLabels.map(categoryLabel => (
@@ -28,7 +32,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
-        <StatFilterSelect categoryLabels={this.props.categoryLabels} />
+        <StatFilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyFilters} />
   		<Table striped bordered responsive hover>
 		  <thead>
 		    <tr>
