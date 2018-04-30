@@ -1,10 +1,13 @@
 import React from 'react';
 import { Table, Pager } from 'react-bootstrap';
 import { connect } from 'react-redux';
+
 import { determineCategoryLabels } from '../actions/stat';
 import { sortPlayersByRank } from '../actions/player';
 import { middleware } from '../middleware/init';
+
 import PlayerRow from '../components/playerRow';
+import StatFilterSelect from '../components/statFilterSelect';
 
 class HomePage extends React.Component {
   componentDidMount() {
@@ -13,6 +16,7 @@ class HomePage extends React.Component {
   }
 
   render() {
+  	// Perhaps move this to a sub-component
   	let labels = this.props.categoryLabels.map(categoryLabel => (
   			<th>{categoryLabel}</th>
   		));
@@ -24,6 +28,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
+        <StatFilterSelect categoryLabels={this.props.categoryLabels} />
   		<Table striped bordered responsive hover>
 		  <thead>
 		    <tr>
