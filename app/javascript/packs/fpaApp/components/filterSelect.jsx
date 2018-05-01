@@ -2,7 +2,7 @@ import React from 'react';
 import { ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
 
 
-class StatFilterSelect extends React.Component {
+class FilterSelect extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -12,7 +12,6 @@ class StatFilterSelect extends React.Component {
   }
 
   handleChange(e) {
-    debugger;
     this.setState({ categories: e });
   }
 
@@ -44,4 +43,4 @@ class StatFilterSelect extends React.Component {
     )
   }
 }
-export default StatFilterSelect;
+export default FilterSelect;
