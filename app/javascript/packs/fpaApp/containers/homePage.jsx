@@ -7,7 +7,8 @@ import { sortPlayersByRank } from '../actions/player';
 import { middleware } from '../middleware/init';
 
 import PlayerRow from '../components/playerRow';
-import FilterSelect from '../components/filterSelect';
+import StatFilterSelect from '../components/statFilterSelect';
+import PlayerFilterSelect from '../components/playerFilterSelect';
 
 class HomePage extends React.Component {
   componentDidMount() {
@@ -15,7 +16,11 @@ class HomePage extends React.Component {
   	this.props.sortPlayersByRank(this.props.players);
   }
 
-  handleApplyFilters = filters => {
+  handleApplyStatFilters = statFilters => {
+  	debugger;
+  }
+
+  handleApplyPlayerFilters = playerFilters => {
   	debugger;
   }
 
@@ -32,7 +37,8 @@ class HomePage extends React.Component {
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
-        <FilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyFilters} />
+        <StatFilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyStatFilters} />
+        <PlayerFilterSelect handleClick={this.handleApplyPlayerFilters} />
   		<Table striped bordered responsive hover>
 		  <thead>
 		    <tr>
