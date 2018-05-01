@@ -1,7 +1,7 @@
 const initialState = {
   players: [],
   filteredPlayers: [],
-  currentFilters: { statFilters: [], positionFilters: [], statusFilters: [] }
+  currentFilters: { categories: [], positions: [], statuses: [] }
 };
 
 export default (state = initialState, action) => {
