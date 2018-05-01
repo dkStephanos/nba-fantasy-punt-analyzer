@@ -7,7 +7,7 @@ import { sortPlayersByRank } from '../actions/player';
 import { middleware } from '../middleware/init';
 
 import PlayerRow from '../components/playerRow';
-import FilterSelect from '../components/FilterSelect';
+import FilterSelect from '../components/filterSelect';
 
 class HomePage extends React.Component {
   componentDidMount() {
@@ -15,7 +15,7 @@ class HomePage extends React.Component {
   	this.props.sortPlayersByRank(this.props.players);
   }
 
-  handleApplyFilters = categories => {
+  handleApplyFilters = filters => {
   	debugger;
   }
 

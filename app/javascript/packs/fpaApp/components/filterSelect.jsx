@@ -7,12 +7,17 @@ class FilterSelect extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handlePositionChange = this.handlePositionChange.bind(this);
     this.handleClick = this.props.handleClick.bind(this);
   }
 
-  handleChange(e) {
+  handleCategoryChange(e) {
     this.setState({ categories: e });
+  }
+
+  handlePositionChange(e) {
+    this.setState({ positions: e });
   }
 
   render() {
@@ -21,24 +26,36 @@ class FilterSelect extends React.Component {
     // Used to set the ToggleButton values
     let value = 1;
 
-    const toggleButtons = this.props.categoryLabels.filter(function(label){
-      return (labelBlackList.indexOf(label) == -1 ? true : false)
+    const categoryCheckboxes = this.props.categoryLabels.filter(function(label){
+      return (labelBlackList.indexOf(label) == -1 ? true : false);
     }).map(label => (
       <ToggleButton value={label}>{label}</ToggleButton>
     ));
 
+    // Positions in basketball don't change, so we need a checkbox for each of these positions
+    const positionCheckboxes = ['PG', 'SG', 'G', 'SF', 'PF', 'F', 'C'].map(position => (
+      <ToggleButton value={position}>{position}</ToggleButton>
+    ));
+
     return(
-      <div key="stat-filters">
-        <div key="stat-checkboxes" >
+      <div key="filters">
+        <div key="filter-checkboxes" >
           <ToggleButtonGroup
             type="checkbox"
             
-            onChange={this.handleChange}
+            onChange={this.handleCategoryChange}
           >
-            {toggleButtons}
+            {categoryCheckboxes}
+          </ToggleButtonGroup>
+          <ToggleButtonGroup
+            type="checkbox"
+            
+            onChange={this.handlePositionChange}
+          >
+            {positionCheckboxes}
           </ToggleButtonGroup>
         </div>
-        <Button bsStyle="primary" onClick={() => this.handleClick(this.state.categories)}>Apply Filters</Button>
+        <Button bsStyle="primary" onClick={() => this.handleClick(this.state)}>Apply Filters</Button>
       </div>
     )
   }
