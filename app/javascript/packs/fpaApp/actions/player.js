@@ -1,4 +1,5 @@
 import { auth } from '../utils/init';
+import { playerStatKeys } from '../assets/data/playerStatKeys';
 
 const YAHOO_API_URL = process.env.YAHOO_API_BASE_URL;
 const RAILS_API_URL = process.env.RAILS_API_URL;
@@ -36,6 +37,13 @@ const setPlayerRanks = (players) => {
 const sortPlayers = (players) => {
   return {
     type: 'SORT_PLAYERS_SUCCESS',
+    players
+  };
+};
+
+const setFilteredPlayers = (players) => {
+  return {
+    type: 'SET_FILTERED_PLAYERS',
     players
   };
 };
@@ -184,5 +192,47 @@ export const sortPlayersByRank = (players) => {
 
     // Finally, store the sorted players array in state
     dispatch(sortPlayers(players));
+  };
+};
+
+export const calculateAndSortPlayerRanksWithFilters = (players, filters) => {
+  return dispatch => {
+    // Initialize rank to 0
+    let rank = 0;
+
+    // Get the stat_keys from the filters 
+    let filterKeys = filters.map(filter => (
+        Object.keys(playerStatKeys).find(key => playerStatKeys[key] === filter)
+      ));
+
+    // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the impacts
+    // reduces the value to 0 if parseFloat returns NAN, then adds the value to the player's rank
+    // Also ignores any category within filters
+    for(let i = 0; i < players.length; i++) {
+      // Reset rank for each player
+      rank = 0;
+      for(let j = 0; j < players[i].player_stats.stats.stat.length; j++) {
+        if(filterKeys.includes(players[i].player_stats.stats.stat[j].stat_id) || players[i].player_stats.stats.stat[j].stat_id === "9004003" || players[i].player_stats.stats.stat[j].stat_id === "9007006") {
+          // do nothing
+        } else {
+          rank += players[i].player_stats.stats.stat[j].zScore;
+        }
+      }
+      // Once we've added all z-Scores, divide by the length to get the average zScore
+      // and then store that result in the player object under the key 'rank'
+      players[i].rank = rank / players[i].player_stats.stats.stat.length;
+    }
+    // Sort players based on the calculated rank
+    players.sort((a,b) => {return (a.rank < b.rank) ? 1 : ((b.rank < a.rank) ? -1 : 0);} ); 
+
+    // Finally, store the sorted players array in state
+    dispatch(setFilteredPlayers(players));
+  };
+};
+
+export const clearFilteredPlayers = () => {
+  return dispatch => {
+    // Dispatch action which will reset the filteredPlayers array in state to an empty array
+    dispatch(setFilteredPlayers([]));
   };
 };

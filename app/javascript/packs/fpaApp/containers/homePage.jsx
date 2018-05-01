@@ -3,7 +3,7 @@ import { Table, Pager } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { determineCategoryLabels } from '../actions/stat';
-import { sortPlayersByRank } from '../actions/player';
+import { sortPlayersByRank, calculateAndSortPlayerRanksWithFilters, clearFilteredPlayers } from '../actions/player';
 import { middleware } from '../middleware/init';
 
 import PlayerRow from '../components/playerRow';
@@ -12,12 +12,18 @@ import PlayerFilterSelect from '../components/playerFilterSelect';
 
 class HomePage extends React.Component {
   componentDidMount() {
+  	// Initial actions
   	this.props.determineCategoryLabels(this.props.players[0]);
   	this.props.sortPlayersByRank(this.props.players);
+  	this.props.clearFilteredPlayers();
   }
 
   handleApplyStatFilters = statFilters => {
-  	debugger;
+  	if(statFilters.categories) {
+  		this.props.calculateAndSortPlayerRanksWithFilters(this.props.players, statFilters.categories);
+  	} else {
+  		this.props.clearFilteredPlayers();
+  	}
   }
 
   handleApplyPlayerFilters = playerFilters => {
@@ -25,15 +31,27 @@ class HomePage extends React.Component {
   }
 
   render() {
+  	debugger;
   	// Perhaps move this to a sub-component
   	let labels = this.props.categoryLabels.map(categoryLabel => (
   			<th>{categoryLabel}</th>
   		));
   	// Initializes currentRank to be incremented when creating PlayerRow's
   	let currentRank = this.props.playerStart + 1;
-  	let playerRows = this.props.players.map(player => (
+  	
+  	// Checks to see if we have players with filters applied, rendering those, rendering all players if not
+  	let playerRows;
+
+  	if(this.props.filteredPlayers.length > 0) {
+  		playerRows = this.props.filteredPlayers.map(player => (
         	<PlayerRow key={player.id} player={player} rank={currentRank++}/>
     	));
+  	} else {
+  		playerRows = this.props.players.map(player => (
+        	<PlayerRow key={player.id} player={player} rank={currentRank++}/>
+    	));
+  	}
+  	
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
@@ -62,8 +80,9 @@ const mapStateToProps = (state, ownProps) => {
   return {
     players: state.playerReducer.players,
     playerStart: parseInt(ownProps.match.params.playerStart),
-    categoryLabels: state.statReducer.categoryLabels
+    categoryLabels: state.statReducer.categoryLabels,
+    filteredPlayers: state.playerReducer.filteredPlayers
   };
 };
 
-export default connect(mapStateToProps, { determineCategoryLabels, sortPlayersByRank })(HomePage);
+export default connect(mapStateToProps, { determineCategoryLabels, sortPlayersByRank, calculateAndSortPlayerRanksWithFilters, clearFilteredPlayers })(HomePage);

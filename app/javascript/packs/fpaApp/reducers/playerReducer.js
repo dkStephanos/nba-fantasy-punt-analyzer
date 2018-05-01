@@ -31,6 +31,11 @@ export default (state = initialState, action) => {
         players: [...action.players]
       });
 
+    case 'SET_FILTERED_PLAYERS':
+      return Object.assign({}, state, {
+        filteredPlayers: [...action.players]
+      });
+
     default:
       return state;
   }
