@@ -20,9 +20,11 @@ class HomePage extends React.Component {
 
   handleApplyStatFilters = statFilters => {
   	if(statFilters.categories) {
+  		// If there are filters, calculate ranks accordingly, storing the result in filteredPlayers
   		this.props.calculateAndSortPlayerRanksWithFilters(this.props.players, statFilters.categories);
   	} else {
-  		this.props.clearFilteredPlayers();
+  		// If there are no filters, we are resetting to base rank, so pass in an empty array and calculate rank.
+  		this.props.calculateAndSortPlayerRanksWithFilters(this.props.players, [])
   	}
   }
 
@@ -57,7 +59,7 @@ class HomePage extends React.Component {
         <h1>NBA Fantasy Analyzer App</h1>
         <StatFilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyStatFilters} />
         <PlayerFilterSelect handleClick={this.handleApplyPlayerFilters} />
-  		<Table striped bordered responsive hover>
+  		<Table striped bordered responsive hover condensed>
 		  <thead>
 		    <tr>
 		      {labels}
