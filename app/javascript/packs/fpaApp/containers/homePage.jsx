@@ -45,11 +45,11 @@ class HomePage extends React.Component {
 
   	if(this.props.filteredPlayers.length > 0) {
   		playerRows = this.props.filteredPlayers.map(player => (
-        	<PlayerRow key={player.id} player={player} rank={currentRank++}/>
+        	<PlayerRow key={`${player.player_id}`} player={player} rank={currentRank++}/>
     	));
   	} else {
   		playerRows = this.props.players.map(player => (
-        	<PlayerRow key={player.id} player={player} rank={currentRank++}/>
+        	<PlayerRow key={`${player.player_id}`} player={player} rank={currentRank++}/>
     	));
   	}
   	
