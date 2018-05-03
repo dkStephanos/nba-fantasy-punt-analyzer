@@ -17,13 +17,13 @@ class HomePage extends React.Component {
   	this.props.clearFilteredPlayers();
   }
 
-  handleApplyStatFilters = statFilters => {
-  	if(statFilters.categories) {
+  handleApplyFilters = filters => {
+  	if(filters) {
   		// If there are filters, calculate ranks accordingly, storing the result in filteredPlayers
-  		this.props.calculateAndSortPlayerRanksWithFilters(this.props.players, statFilters.categories);
+  		this.props.calculateAndSortPlayerRanksWithFilters(this.props.players, filters);
   	} else {
-  		// If there are no filters, we are resetting to base rank, so pass in an empty array and calculate rank.
-  		this.props.calculateAndSortPlayerRanksWithFilters(this.props.players, [])
+  		// If there are no filters, clear filtered players
+  		this.props.clearFilteredPlayers();
   	}
   }
 
@@ -35,7 +35,7 @@ class HomePage extends React.Component {
   	debugger;
   	// Perhaps move this to a sub-component
   	let labels = this.props.categoryLabels.map(categoryLabel => (
-  			<th>{categoryLabel}</th>
+  			<th key={`${categoryLabel}-table-header`}>{categoryLabel}</th>
   		));
   	// Initializes currentRank to be incremented when creating PlayerRow's
   	let currentRank = this.props.playerStart + 1;
@@ -56,7 +56,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
-        <FilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyStatFilters} />
+        <FilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyFilters} />
   		<Table striped bordered responsive hover condensed>
 		  <thead>
 		    <tr>

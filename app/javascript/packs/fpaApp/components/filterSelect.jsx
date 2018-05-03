@@ -41,7 +41,7 @@ class FilterSelect extends React.Component {
     ));
 
     // Create a checkbox for all status conditions
-    const statusCheckboxes = ['O', 'INJ', 'GTD', 'NA'].map(status => (
+    const statusCheckboxes = ['O', 'INJ', 'GTD'].map(status => (
       <ToggleButton key={`${status}-checkbox`} value={status}>{status}</ToggleButton>
     ));
 

@@ -196,11 +196,12 @@ export const sortPlayersByRank = (players) => {
 };
 
 export const calculateAndSortPlayerRanksWithFilters = (players, filters) => {
+  debugger;
   return dispatch => {
     // Initialize rank to 0
     let rank = 0;
 
-    // Get the stat_keys from the filters 
+    // Get the stat_keys from the category filters 
     let filterKeys = filters.map(filter => (
         Object.keys(playerStatKeys).find(key => playerStatKeys[key] === filter)
       ));
