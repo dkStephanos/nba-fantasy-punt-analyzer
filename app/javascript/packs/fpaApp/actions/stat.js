@@ -98,7 +98,7 @@ export const calculateStdDeviations = (players, means) => {
 export const determineCategoryLabels = (player) => {
   return dispatch => {
     // Initialize category labels with basic info, same regardless of statistical categories
-    let categoryLabels = ["Rank", "Name", "Team", "Positions"];
+    let categoryLabels = ["Rank", "Name", "Team", "Positions", "Owner", "Status"];
 
     // Step through stat categories, storing the corresponding label for each in categoryLabels
     for(let i = 0; i < player.player_stats.stats.stat.length; i++) {
