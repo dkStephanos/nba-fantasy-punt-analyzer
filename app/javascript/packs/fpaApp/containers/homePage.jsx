@@ -7,8 +7,7 @@ import { sortPlayersByRank, calculateAndSortPlayerRanksWithFilters, clearFiltere
 import { middleware } from '../middleware/init';
 
 import PlayerRow from '../components/playerRow';
-import StatFilterSelect from '../components/statFilterSelect';
-import PlayerFilterSelect from '../components/playerFilterSelect';
+import FilterSelect from '../components/filterSelect';
 
 class HomePage extends React.Component {
   componentDidMount() {
@@ -57,8 +56,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
-        <StatFilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyStatFilters} />
-        <PlayerFilterSelect handleClick={this.handleApplyPlayerFilters} />
+        <FilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyStatFilters} />
   		<Table striped bordered responsive hover condensed>
 		  <thead>
 		    <tr>
