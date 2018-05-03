@@ -127,6 +127,12 @@ export const calculateFgAndFtImpacts = (players, means) => {
           case '9007006':
             ftAttempted = parseFloat(players[i].player_stats.stats.stat[j].value.split('/')[1]) || 0;
             break;
+          case '3':
+            fgAttempted = parseFloat(players[i].player_stats.stats.stat[j].value) || 0;
+            break;
+          case '6':
+            ftAttempted = parseFloat(players[i].player_stats.stats.stat[j].value) || 0;
+            break;
           default:
         }
       };
