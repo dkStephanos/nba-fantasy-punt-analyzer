@@ -47,8 +47,9 @@ class FilterSelect extends React.Component {
 
     return(
       <div key="stat-filter-select">
-        <div key="stat-filter-checkboxes" >
-          <label>Stat Categories</label>
+
+        <div id="stat-filter-checkboxes" >
+          <label>Categories: </label>
           <ToggleButtonGroup
             type="checkbox"
             
@@ -56,8 +57,10 @@ class FilterSelect extends React.Component {
           >
             {categoryCheckboxes}
           </ToggleButtonGroup>
+        </div>
 
-          <label>Positions</label>
+        <div id="position-filter-checkboxes">
+          <label>Positions: </label>
           <ToggleButtonGroup
             type="checkbox"
             
@@ -65,8 +68,10 @@ class FilterSelect extends React.Component {
           >
             {positionCheckboxes}
           </ToggleButtonGroup>
+        </div>
 
-          <label>Statuses</label>
+        <div id="status-filter-checkboxes">
+          <label>Statuses: </label>
           <ToggleButtonGroup
             type="checkbox"
             
