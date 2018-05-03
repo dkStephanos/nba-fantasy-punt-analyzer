@@ -208,7 +208,7 @@ export const calculateAndSortPlayerRanksWithFilters = (players, filters) => {
     let rank = 0;
 
     // Get the stat_keys from the category filters 
-    let filterKeys = filters.map(filter => (
+    let filterKeys = filters.categories.map(filter => (
         Object.keys(playerStatKeys).find(key => playerStatKeys[key] === filter)
       ));
 

@@ -18,21 +18,10 @@ class HomePage extends React.Component {
   }
 
   handleApplyFilters = filters => {
-  	if(filters) {
-  		// If there are filters, calculate ranks accordingly, storing the result in filteredPlayers
-  		this.props.calculateAndSortPlayerRanksWithFilters(this.props.players, filters);
-  	} else {
-  		// If there are no filters, clear filtered players
-  		this.props.clearFilteredPlayers();
-  	}
-  }
-
-  handleApplyPlayerFilters = playerFilters => {
-  	debugger;
+  	this.props.calculateAndSortPlayerRanksWithFilters(this.props.players, filters);
   }
 
   render() {
-  	debugger;
   	// Perhaps move this to a sub-component
   	let labels = this.props.categoryLabels.map(categoryLabel => (
   			<th key={`${categoryLabel}-table-header`}>{categoryLabel}</th>
