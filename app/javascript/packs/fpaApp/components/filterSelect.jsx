@@ -80,7 +80,9 @@ class FilterSelect extends React.Component {
             {statusCheckboxes}
           </ToggleButtonGroup>
         </div>
-        <Button bsStyle="primary" onClick={() => this.handleClick(this.state)}>Apply Filters</Button>
+        <Button bsStyle="primary" onClick={() => this.handleClick(this.state)}>
+          Apply Filters
+        </Button>
       </div>
     )
   }

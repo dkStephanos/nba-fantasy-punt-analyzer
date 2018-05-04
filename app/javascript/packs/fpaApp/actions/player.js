@@ -234,8 +234,8 @@ export const calculateAndSortPlayerRanksWithFilters = (players, filters) => {
           });
         }
 
-        // First check if the player even has a status, that filters contains statuses and the player hasn't already been eliminated
-        // if any of those conditions fail, set 'matchesFilter' to false
+        // First check if the player even has a status, that filters contains statuses and the player 
+        // hasn't already been eliminated, if any of those conditions fail, set 'matchesFilter' to false
         if(players[k].status && filters.statuses && !matchesFilter) {
           // Sets 'matchesFilter' to true if they match any of the status filters
           matchesFilter = filters.statuses.some(status => {
@@ -251,23 +251,22 @@ export const calculateAndSortPlayerRanksWithFilters = (players, filters) => {
         matchesFilter = false;
       }
     } else {
-      debugger;
       filteredPlayers = players;
     }
-
-    debugger;
 
     // Set playersLength to filteredPlayers.length
     playersLength = filteredPlayers.length;
 
-    // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the impacts
-    // reduces the value to 0 if parseFloat returns NAN, then adds the value to the player's rank
-    // Also ignores any category within filters
+    // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA 
+    //in favor of the impacts, reduces the value to 0 if parseFloat returns NAN, then adds the value to the 
+    // player's rank, Also ignores any category within filters
     for(let i = 0; i < playersLength; i++) {
       // Reset rank for each player
       rank = 0;
       for(let j = 0; j < filteredPlayers[i].player_stats.stats.stat.length; j++) {
-        if(filterKeys.includes(filteredPlayers[i].player_stats.stats.stat[j].stat_id) || filteredPlayers[i].player_stats.stats.stat[j].stat_id === "9004003" || filteredPlayers[i].player_stats.stats.stat[j].stat_id === "9007006") {
+        if(filterKeys.includes(filteredPlayers[i].player_stats.stats.stat[j].stat_id) 
+           || filteredPlayers[i].player_stats.stats.stat[j].stat_id === "9004003" 
+           || filteredPlayers[i].player_stats.stats.stat[j].stat_id === "9007006") {
           // do nothing
         } else {
           rank += filteredPlayers[i].player_stats.stats.stat[j].zScore;
