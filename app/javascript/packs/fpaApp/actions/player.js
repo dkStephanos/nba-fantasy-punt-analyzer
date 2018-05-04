@@ -202,38 +202,86 @@ export const sortPlayersByRank = (players) => {
 };
 
 export const calculateAndSortPlayerRanksWithFilters = (players, filters) => {
-  debugger;
   return dispatch => {
-    // Initialize rank to 0
+    // Initialize rank to 0, and set playersLength to player.length
     let rank = 0;
+    let playersLength = players.length;
 
-    // Get the stat_keys from the category filters 
-    let filterKeys = filters.categories.map(filter => (
+    // Get the stat_keys from the category filters if there are categories in filters
+    let filterKeys;
+    if(filters.categories) {
+      filterKeys = filters.categories.map(filter => (
         Object.keys(playerStatKeys).find(key => playerStatKeys[key] === filter)
       ));
+    } else {
+      filterKeys = [];
+    }
+
+    // Initialize filteredPlayers to empty array, this is where we will store players that fit our
+    // position and status filters, and initialize 'matchesFilter' to false
+    let matchesFilter = false;
+    let filteredPlayers = [];
+
+    // Only do this is there are position or status filters, otherwise, set filteredPlayers to players
+    if(filters.positions || filters.statuses) {
+      // Loop through players, checking if they match 'some' of the positions or statuses filters
+      for(let k = 0; k < playersLength; k++) {
+        // First check if there are position filters
+        if(filters.positions) {
+          // Sets 'matchesFilter' to true if they match any of the position filters
+          matchesFilter = players[k].eligible_positions.position.some(position => {
+            return filters.positions.indexOf(position) >= 0;
+          });
+        }
+
+        // First check if the player even has a status, that filters contains statuses and the player hasn't already been eliminated
+        // if any of those conditions fail, set 'matchesFilter' to false
+        if(players[k].status && filters.statuses && !matchesFilter) {
+          // Sets 'matchesFilter' to true if they match any of the status filters
+          matchesFilter = filters.statuses.some(status => {
+            return players[k].status === status;
+          });
+        }
+
+        // At this point, if 'matchesFilter' is false, add to 'filteredPlayers' array
+        // then, regardless, reset 'matchesFilter' to false
+        if(!matchesFilter) {
+          filteredPlayers.push(players[k]);
+        }
+        matchesFilter = false;
+      }
+    } else {
+      debugger;
+      filteredPlayers = players;
+    }
+
+    debugger;
+
+    // Set playersLength to filteredPlayers.length
+    playersLength = filteredPlayers.length;
 
     // Loop through players, looping through each player's individual stats ignoring FGM/FGA & FTM/FTA in favor of the impacts
     // reduces the value to 0 if parseFloat returns NAN, then adds the value to the player's rank
     // Also ignores any category within filters
-    for(let i = 0; i < players.length; i++) {
+    for(let i = 0; i < playersLength; i++) {
       // Reset rank for each player
       rank = 0;
-      for(let j = 0; j < players[i].player_stats.stats.stat.length; j++) {
-        if(filterKeys.includes(players[i].player_stats.stats.stat[j].stat_id) || players[i].player_stats.stats.stat[j].stat_id === "9004003" || players[i].player_stats.stats.stat[j].stat_id === "9007006") {
+      for(let j = 0; j < filteredPlayers[i].player_stats.stats.stat.length; j++) {
+        if(filterKeys.includes(filteredPlayers[i].player_stats.stats.stat[j].stat_id) || filteredPlayers[i].player_stats.stats.stat[j].stat_id === "9004003" || filteredPlayers[i].player_stats.stats.stat[j].stat_id === "9007006") {
           // do nothing
         } else {
-          rank += players[i].player_stats.stats.stat[j].zScore;
+          rank += filteredPlayers[i].player_stats.stats.stat[j].zScore;
         }
       }
       // Once we've added all z-Scores, divide by the length to get the average zScore
       // and then store that result in the player object under the key 'rank'
-      players[i].rank = rank / players[i].player_stats.stats.stat.length;
+      filteredPlayers[i].rank = rank / filteredPlayers[i].player_stats.stats.stat.length;
     }
-    // Sort players based on the calculated rank
-    players.sort((a,b) => {return (a.rank < b.rank) ? 1 : ((b.rank < a.rank) ? -1 : 0);} ); 
+    // Sort filteredPlayers based on the calculated rank
+    filteredPlayers.sort((a,b) => {return (a.rank < b.rank) ? 1 : ((b.rank < a.rank) ? -1 : 0);} ); 
 
-    // Finally, store the sorted players array in state
-    dispatch(setFilteredPlayers(players));
+    // Finally, store the sorted filteredPlayers array in state
+    dispatch(setFilteredPlayers(filteredPlayers));
   };
 };
 
