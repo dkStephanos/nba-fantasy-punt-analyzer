@@ -13,11 +13,10 @@ class PlayerRow extends React.Component {
             return(
                   <tr>
                         <td key ={`${this.props.player.player_key}-rank`}>{this.props.rank}: <img src={this.props.player.headshot.url}/></td>
-                        <td key ={`${this.props.player.player_key}-name`}>{this.props.player.name.full}</td>
+                        <td key ={`${this.props.player.player_key}-name`}>{this.props.player.name.full} <p className="player-status-badge">{this.props.player.status ? this.props.player.status : ""}</p></td>
                         <td key ={`${this.props.player.player_key}-team`}>{this.props.player.editorial_team_abbr}</td>
                         <td key ={`${this.props.player.player_key}-position`}>{this.props.player.display_position}</td>
                         <td key ={`${this.props.player.player_key}-owner`}>{this.props.player.ownership.owner_team_name ? this.props.player.ownership.owner_team_name : "Free Agent"}</td>
-                        <td key ={`${this.props.player.player_key}-status`}>{this.props.player.status ? this.props.player.status : "Healthy"}</td>
                         {statRows}
                   </tr>
             )
