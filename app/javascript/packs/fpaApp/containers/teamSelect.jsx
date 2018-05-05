@@ -23,7 +23,7 @@ class TeamSelect extends React.Component {
   	if(this.props.teams) {
       teams = this.props.teams.map(team => (
       <div className="teamCard" onClick={() => this.redirectToFetchingPlayers(team.team_key)}>
-        <Team team={team}/>
+        <Team key={`${team.team_key}-card`} team={team}/>
       </div>
     ));
     }
