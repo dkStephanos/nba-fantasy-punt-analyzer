@@ -26,7 +26,7 @@ const Header = () => {
 
 	    </Nav>
 	    <Nav pullRight>
-	      <NavItem eventKey={1} href="#logout">
+	      <NavItem eventKey={1} href="/logout">
 	        Logout
 	      </NavItem>
 	    </Nav>

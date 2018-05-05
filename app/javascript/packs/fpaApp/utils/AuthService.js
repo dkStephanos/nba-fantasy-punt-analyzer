@@ -12,18 +12,19 @@ export default class AuthService {
   }
 
   setToken(idToken) {
-    // Saves user token to local storage
+    // Saves user token to session storage
     sessionStorage.setItem('id_token', idToken);
   }
 
   getToken() {
-    // Retrieves the user token from local storage
+    // Retrieves the user token from session storage
     return sessionStorage.getItem('id_token');
   }
 
   logout() {
-    // Clear user token and profile data from local storage
+    // Clear user token and league/player data from session/local storage
     sessionStorage.removeItem('id_token');
+    localStorage.clear();
     window.location.replace('/');
   }
 

@@ -12,6 +12,7 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import App from './components/app/App';
 import LoginPage from './components/loginPage';
 import LoginTransition from './components/loginTransition';
+import LogoutTransition from './components/logoutTransition';
 import LoadingTransition from './components/app/loadingTransition';
 
 import PlayerFetchTransition from './containers/playerFetchTransition';
@@ -30,6 +31,7 @@ const Routes = (props) => (
 		    		<Route path='/teamSelect' component={TeamSelect} />
 		    		<Route path='/fetchingPlayers' component={PlayerFetchTransition} />
 		    		<Route path='/home/:playerStart' component={HomePage} />
+		    		<Route exact path='/logout' component={LogoutTransition} />
 		    		<Route exact path='/' component={LoginPage} />
 		    	</Switch>
 	    	</PersistGate>
