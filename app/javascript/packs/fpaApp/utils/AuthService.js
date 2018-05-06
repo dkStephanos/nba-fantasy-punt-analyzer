@@ -24,6 +24,7 @@ export default class AuthService {
   logout() {
     // Clear user token and league/player data from session/local storage
     sessionStorage.removeItem('id_token');
+    debugger;
     localStorage.clear();
     window.location.replace('/');
   }

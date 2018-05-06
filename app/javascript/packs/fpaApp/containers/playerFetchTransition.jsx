@@ -17,36 +17,38 @@ class PlayerFetchTransition extends Component {
   // so we don't repeat actions. As a result, one if statement worth of actions occur per lifecycle event
   // sequentially until all fetches are done and we are redirected to the home page
   componentDidUpdate() {
-    switch(this.state.step) {
-      case 1:
-        // First, we need the FG and FT impacts for each player
-        this.props.calculateFgAndFtImpacts(this.props.players, this.props.means);
-        this.setState({ step: 2 })
-        break;
-      case 2:
-        // After we have the FG/FT impacts, we can determine means for each player's statistical categories 
-        this.props.calculateMeans(this.props.players);
-        this.setState({ step: 3 })
-        break;
-      case 3:
-        // Once we have that, we can calculate the standard deviation for each statistical category 
-        this.props.calculateStdDeviations(this.props.players, this.props.means);
-        this.setState({ step: 4 })
-        break;
-      case 4:
-        // Then, once we have the standard deviations, we can calculate the players z-Scores
-        this.props.calculateZScores(this.props.players, this.props.means, this.props.stdDeviations);
-        this.setState({ step: 5 })
-        break;
-      case 5:
-        // Last step, once we have the z-Scores for the players, we can calculate their rank
-        this.props.calculatePlayerRanks(this.props.players);
-        this.setState({ step: 6 })
-        break;
-      case 6:
-        // Finally, if we got this far, we have all the data how we need it, so redirect to the home page
-        this.redirectToHomePage();
-      default:
+    if(this.props.players.length > 0) {
+      switch(this.state.step) {
+        case 1:
+          // First, we need the FG and FT impacts for each player
+          this.props.calculateFgAndFtImpacts(this.props.players, this.props.means);
+          this.setState({ step: 2 })
+          break;
+        case 2:
+          // After we have the FG/FT impacts, we can determine means for each player's statistical categories 
+          this.props.calculateMeans(this.props.players);
+          this.setState({ step: 3 })
+          break;
+        case 3:
+          // Once we have that, we can calculate the standard deviation for each statistical category 
+          this.props.calculateStdDeviations(this.props.players, this.props.means);
+          this.setState({ step: 4 })
+          break;
+        case 4:
+          // Then, once we have the standard deviations, we can calculate the players z-Scores
+          this.props.calculateZScores(this.props.players, this.props.means, this.props.stdDeviations);
+          this.setState({ step: 5 })
+          break;
+        case 5:
+          // Last step, once we have the z-Scores for the players, we can calculate their rank
+          this.props.calculatePlayerRanks(this.props.players);
+          this.setState({ step: 6 })
+          break;
+        case 6:
+          // Finally, if we got this far, we have all the data how we need it, so redirect to the home page
+          this.redirectToHomePage();
+        default:
+      }
     }
   }
 
