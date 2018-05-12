@@ -61,9 +61,13 @@ class YahooApi
   end
 
   def user_team(team_key)
-    resp = self.class.get(
+    request = Typhoeus::Request.new(
       ENV['YAHOO_API_TEAM_URL'] + team_key + "/players/stats",
-      :headers => @headers)
+      method: :get,
+      headers: @headers
+    )
+    request.run()
+    resp = request.response
     # Convert from XML to JSON
     respJSON = Hash.from_xml(resp.body).as_json
      # Checks to make sure we got player data, returning it if so, otherwise an error message
