@@ -76,9 +76,13 @@ class YahooApi
 
   def user_teams
     teams = []
-    resp = self.class.get(
+    request = Typhoeus::Request.new(
       ENV['YAHOO_API_TEAMS_URL'],
-      :headers => @headers)
+      method: :get,
+      headers: @headers
+    )
+    request.run()
+    resp = request.response
     # Convert from XML to JSON
     respJSON = Hash.from_xml(resp.body).as_json
     # Checks if there are multiple teams, only adding those that are current
