@@ -42,21 +42,43 @@ class YahooApi
   end
 
   def players(league_key)
+    # Initialize the players array and players_start as well as hydra which will be used for conccurent api calls
     players = []
+    players_start = 0
+    hydra = Typhoeus::Hydra.new
+
     # Players are returned 25 at a time, so step up getting the top 50 players starting at 0 and add them to an array
-    0.step(25, 25) do |n|
-      resp = self.class.get(
-        ENV['YAHOO_API_PLAYERS_URL'] + league_key + "/players;status=ALL;sort=OR;start=#{n};out=stats,ownership",
-        :headers => @headers)
+    requests = 12.times.map do
+      request = Typhoeus::Request.new(
+        ENV['YAHOO_API_PLAYERS_URL'] + league_key + "/players;status=ALL;sort=OR;start=#{players_start};out=stats,ownership",
+        method: :get,
+        headers: @headers
+      )
+      hydra.queue(request)
+      players_start += 25
+      request
+    end
+
+    # Runs all queued reqeusts
+    hydra.run
+
+    # Maps request bodies into responses as JSON objects
+    responses = requests.map do |request|
       # Convert from XML to JSON
-      respJSON = Hash.from_xml(resp.body).as_json
-       # Checks to make sure we got player data, returning it if so, otherwise an error message
-      if(respJSON["fantasy_content"]["league"]["players"]["count"].to_i > 0)
-        players += respJSON["fantasy_content"]["league"]["players"]["player"]
+      Hash.from_xml(request.response.body).as_json
+    end
+
+    # Steps through the resonses, and adds players to 'players' array
+    for response in responses
+      # Checks to make sure we got player data, returning it if so, otherwise an error message
+      if(response["fantasy_content"]["league"]["players"]["count"].to_i > 0)
+        players += response["fantasy_content"]["league"]["players"]["player"]
       else
         players = "Error fetching players data"
       end
-    end
+    end     
+    
+    # Return the 'players' array
     players
   end
 
@@ -100,7 +122,7 @@ class YahooApi
     # If only one team, check if it is current and if it is, return it
     if(respJSON["fantasy_content"]["users"]["user"]["teams"]["count"].to_i == 1)
       if(respJSON["fantasy_content"]["users"]["user"]["teams"]["team"]["team_key"].split('.').first == ENV['GAME_ID'])
-          teams = respJSON["fantasy_content"]["users"]["user"]["teams"]["team"]
+          teams << respJSON["fantasy_content"]["users"]["user"]["teams"]["team"]
         end
       end
     end
