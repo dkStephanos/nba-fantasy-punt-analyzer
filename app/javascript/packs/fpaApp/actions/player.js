@@ -284,6 +284,13 @@ export const calculateAndSortPlayerRanksWithFilters = (players, filters) => {
   };
 };
 
+export const clearPlayers = () => {
+  return dispatch => {
+    // Dispatch action which will reset the players array in state to an empty array
+    dispatch(setPlayers([]));
+  };
+};
+
 export const clearFilteredPlayers = () => {
   return dispatch => {
     // Dispatch action which will reset the filteredPlayers array in state to an empty array

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTeams } from '../actions/team';
+import { clearPlayers } from '../actions/player';
 import { middleware } from '../middleware/init';
 import Team from '../components/team';
 
 class TeamSelect extends React.Component {
   componentDidMount() {
     this.props.getTeams();
+    this.props.clearPlayers();
   }
 
   redirectToFetchingPlayers = teamKey => {
@@ -42,4 +44,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { getTeams })(TeamSelect);
+export default connect(mapStateToProps, { getTeams, clearPlayers })(TeamSelect);
