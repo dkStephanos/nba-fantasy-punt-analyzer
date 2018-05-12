@@ -5,23 +5,23 @@ const Header = () => {
   return (
     <Navbar inverse collapseOnSelect>
 	  <Navbar.Header>
-	    <Navbar.Brand>
-	      <a href="#home">Fantasy Punt Analyzer</a>
+	    <Navbar.Brand eventKey={1} href="/home" >
+	        Fantasy Punt Analyzer
 	    </Navbar.Brand>
 	    <Navbar.Toggle />
 	  </Navbar.Header>
 	  <Navbar.Collapse>
 	    <Nav>
-	      <NavItem eventKey={1} href="#">
+	      <NavItem eventKey={1} href="/myTeam">
 	        My Team
 	      </NavItem>
 
-	      <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-	        <MenuItem eventKey={3.1}>Action</MenuItem>
+	      <NavDropdown eventKey={3} title="Actions" id="basic-nav-dropdown">
+	        <MenuItem href="/teamSelect" eventKey={3.1}>Team Select</MenuItem>
 	        <MenuItem eventKey={3.2}>Another action</MenuItem>
-	        <MenuItem eventKey={3.3}>Something else here</MenuItem>
+	        <MenuItem eventKey={3.3}>Settings</MenuItem>
 	        <MenuItem divider />
-	        <MenuItem eventKey={3.3}>Separated link</MenuItem>
+	        <MenuItem eventKey={3.3}>About</MenuItem>
 	      </NavDropdown>
 
 	    </Nav>
