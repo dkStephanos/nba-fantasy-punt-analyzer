@@ -30,7 +30,7 @@ const Routes = (props) => (
 		    		<Route path='/leagueSelect' component={LeagueSelect} />
 		    		<Route path='/teamSelect' component={TeamSelect} />
 		    		<Route path='/fetchingPlayers' component={PlayerFetchTransition} />
-		    		<Route path='/home/:playerStart' component={HomePage} />
+		    		<Route path='/home' component={HomePage} />
 		    		<Route exact path='/logout' component={LogoutTransition} />
 		    		<Route exact path='/' component={LoginPage} />
 		    	</Switch>

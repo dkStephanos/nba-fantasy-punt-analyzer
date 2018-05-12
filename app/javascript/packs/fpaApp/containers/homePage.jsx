@@ -27,7 +27,7 @@ class HomePage extends React.Component {
   			<th key={`${categoryLabel}-table-header`}>{categoryLabel}</th>
   		));
   	// Initializes currentRank to be incremented when creating PlayerRow's
-  	let currentRank = this.props.playerStart + 1;
+  	let currentRank = 1;
   	
   	// Checks to see if we have players with filters applied, rendering those, rendering all players if not
   	let playerRows;
@@ -68,7 +68,6 @@ class HomePage extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     players: state.playerReducer.players,
-    playerStart: parseInt(ownProps.match.params.playerStart),
     categoryLabels: state.statReducer.categoryLabels,
     filteredPlayers: state.playerReducer.filteredPlayers
   };

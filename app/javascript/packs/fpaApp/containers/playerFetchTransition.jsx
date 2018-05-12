@@ -53,8 +53,8 @@ class PlayerFetchTransition extends Component {
   }
 
   redirectToHomePage = () => {
-    //Redirect to home page at start position 0
-    window.location.replace(`/home/0`);
+    //Redirect to home page
+    window.location.replace(`/home`);
   };
 
   render() {
