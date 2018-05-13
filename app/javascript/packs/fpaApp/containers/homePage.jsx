@@ -8,6 +8,7 @@ import { middleware } from '../middleware/init';
 
 import PlayerRow from '../components/playerRow';
 import FilterSelect from '../components/filterSelect';
+import PlayerTable from '../components/playerTable';
 
 class HomePage extends React.Component {
   componentDidMount() {
@@ -46,20 +47,7 @@ class HomePage extends React.Component {
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
         <FilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyFilters} />
-  		<Table striped bordered responsive hover condensed>
-		  <thead>
-		    <tr>
-		      {labels}
-		    </tr>
-		  </thead>
-		  <tbody>
-		    {playerRows}
-		  </tbody>
-		</Table>
-		<Pager>
-  			<Pager.Item >Previous</Pager.Item>{' '}
-  			<Pager.Item >Next</Pager.Item>
-		</Pager>
+        <PlayerTable labels={labels} playerRows={playerRows} />
       </div>
     );
   }
