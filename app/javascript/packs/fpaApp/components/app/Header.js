@@ -5,8 +5,8 @@ const Header = () => {
   return (
     <Navbar inverse collapseOnSelect>
 	  <Navbar.Header>
-	    <Navbar.Brand eventKey={1} href="/home" >
-	        Fantasy Punt Analyzer
+	    <Navbar.Brand >
+	        <a href="/home" >Fantasy Punt Analyzer</a>
 	    </Navbar.Brand>
 	    <Navbar.Toggle />
 	  </Navbar.Header>
