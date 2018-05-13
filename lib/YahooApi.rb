@@ -63,13 +63,9 @@ class YahooApi
     hydra.run
 
     # Maps request bodies into responses as JSON objects
-    responses = requests.map do |request|
-      # Convert from XML to JSON
-      Hash.from_xml(request.response.body).as_json
-    end
-
     # Steps through the resonses, and adds players to 'players' array
-    for response in responses
+    for request in requests
+      response = Hash.from_xml(request.response.body).as_json
       # Checks to make sure we got player data, returning it if so, otherwise an error message
       if(response["fantasy_content"]["league"]["players"]["count"].to_i > 0)
         players += response["fantasy_content"]["league"]["players"]["player"]
