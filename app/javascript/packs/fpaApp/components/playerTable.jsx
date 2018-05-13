@@ -50,8 +50,13 @@ class PlayerTable extends React.Component {
 				  <tbody>
 				    {this.displayPlayers()}
 				  </tbody>
+				  <tfoot>
+				  	<tr>
+				  	{this.state.isLoading ? <td className="loading">Loading...</td> : <td>...</td>}
+				  	</tr>
+				  </tfoot>
 				</Table>
-				{this.state.isLoading ? <p className="loading"> Loading...</p> : ""}
+				
 		  	</div>
 		);
 	}
