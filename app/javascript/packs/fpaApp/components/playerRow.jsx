@@ -24,3 +24,4 @@ class PlayerRow extends React.Component {
 }
 
 export default PlayerRow;
+
