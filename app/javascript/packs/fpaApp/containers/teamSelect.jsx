@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getTeams } from '../actions/team';
-import { clearPlayers } from '../actions/player';
-import { middleware } from '../middleware/init';
-import Team from '../components/team';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getTeams } from "../actions/team";
+import { clearPlayers } from "../actions/player";
+import { middleware } from "../middleware/init";
+import Team from "../components/team";
 
 class TeamSelect extends React.Component {
   componentDidMount() {
@@ -12,29 +12,33 @@ class TeamSelect extends React.Component {
   }
 
   redirectToFetchingPlayers = teamKey => {
-  	//Save teamKey/leagueKey in sessionStorage before redirecting to homePage
+    //Save teamKey/leagueKey in sessionStorage before redirecting to homePage
     //teamKey = 'GameID.l.LeagueID.t.TeamID' ... leagueKey = 'GameID.l.LeagueID'
     middleware.setTeamKey(teamKey);
-    middleware.setLeagueKey(teamKey.split('.').slice(0,3).join('.'))
+    middleware.setLeagueKey(
+      teamKey
+        .split(".")
+        .slice(0, 3)
+        .join(".")
+    );
     //Redirect fetchingPlayers transition
     window.location.replace(`/fetchingPlayers`);
   };
 
   render() {
     let teams = [];
-  	if(this.props.teams) {
+    if (this.props.teams) {
       teams = this.props.teams.map(team => (
-      <div className="teamCard" onClick={() => this.redirectToFetchingPlayers(team.team_key)}>
-        <Team key={`${team.team_key}-card`} team={team}/>
-      </div>
-    ));
+        <div
+          className="teamCard"
+          onClick={() => this.redirectToFetchingPlayers(team.team_key)}
+        >
+          <Team key={`${team.team_key}-card`} team={team} />
+        </div>
+      ));
     }
 
-    return (
-      <div className="team-selector">
-      	{teams ? teams : ''}
-      </div>
-    );
+    return <div className="team-selector">{teams ? teams : ""}</div>;
   }
 }
 
