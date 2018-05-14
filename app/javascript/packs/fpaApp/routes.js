@@ -19,6 +19,7 @@ import PlayerFetchTransition from './containers/playerFetchTransition';
 import LeagueSelect from './containers/leagueSelect';
 import TeamSelect from './containers/teamSelect';
 import HomePage from './containers/homePage';
+import NotFound from './components/app/notFound';
 
 const Routes = (props) => (
 	<Provider store={store} >  
@@ -33,6 +34,7 @@ const Routes = (props) => (
 		    		<Route path='/home' component={HomePage} />
 		    		<Route exact path='/logout' component={LogoutTransition} />
 		    		<Route exact path='/' component={LoginPage} />
+		    		<Route path='*' component={NotFound} />
 		    	</Switch>
 	    	</PersistGate>
 	    </App>
