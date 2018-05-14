@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
+import { ToggleButtonGroup, ToggleButton, Button, Panel } from 'react-bootstrap';
 
 
 class FilterSelect extends React.Component {
@@ -46,9 +46,16 @@ class FilterSelect extends React.Component {
     ));
 
     return(
-      <div key="stat-filter-select">
-
-        <div id="stat-filter-checkboxes" >
+      <div key="filter-select">
+        <Panel id="filter-checkboxes" >
+          <Panel.Heading>
+            <Panel.Title toggle>
+              Player Filters
+            </Panel.Title>
+          </Panel.Heading>
+          <Panel.Collapse>
+            <Panel.Body>
+              <div id="stat-filter-checkboxes" >
           <label>Categories: </label>
           <ToggleButtonGroup
             type="checkbox"
@@ -83,6 +90,11 @@ class FilterSelect extends React.Component {
         <Button bsStyle="primary" onClick={() => this.handleClick(this.state)}>
           Apply Filters
         </Button>
+            </Panel.Body>
+          </Panel.Collapse>
+        </Panel>
+
+        
       </div>
     )
   }
