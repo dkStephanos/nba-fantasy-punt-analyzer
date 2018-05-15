@@ -9,6 +9,10 @@ import { middleware } from '../middleware/init';
 import PlayerRow from '../components/playerRow';
 import FilterSelect from '../components/filterSelect';
 import PlayerTable from '../components/playerTable';
+import PlayerList from '../components/playerList';
+import PlayerScrollSync from '../components/playerScrollSync';
+import PlayerGrid from '../components/playerGrid';
+
 
 class HomePage extends React.Component {
   componentDidMount() {
@@ -46,8 +50,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <h1>NBA Fantasy Analyzer App</h1>
-        <FilterSelect categoryLabels={this.props.categoryLabels} handleClick={this.handleApplyFilters} />
-        <PlayerTable labels={labels} playerRows={playerRows} />
+        <PlayerGrid players={this.props.players}/>
       </div>
     );
   }
