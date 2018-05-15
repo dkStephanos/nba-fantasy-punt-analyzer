@@ -1,13 +1,19 @@
-import React from 'react';  
-import Header from './Header';
+import React from "react";
+import darkBaseTheme from "material-ui/styles/baseThemes/darkBaseTheme";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
 
-class App extends React.Component {  
+import Header from "./Header";
+
+class App extends React.Component {
   render() {
     return (
-      <div className="container-fluid">
-        <Header />
-        {this.props.children}
-      </div>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <div className="container-fluid">
+          <Header />
+          {this.props.children}
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

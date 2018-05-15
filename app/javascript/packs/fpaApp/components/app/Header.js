@@ -1,38 +1,33 @@
-import React, {PropTypes} from 'react';  
-import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import React, { Component } from "react";
+import AppBar from "material-ui/AppBar";
+import IconButton from "material-ui/IconButton";
+import IconMenu from "material-ui/IconMenu";
+import MenuItem from "material-ui/MenuItem";
+import FlatButton from "material-ui/FlatButton";
+import Toggle from "material-ui/Toggle";
+import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
+import NavigationClose from "material-ui/svg-icons/navigation/close";
+import { auth } from "../../utils/init";
 
-const Header = () => {  
-  return (
-    <Navbar inverse collapseOnSelect>
-	  <Navbar.Header>
-	    <Navbar.Brand >
-	        <a href="/home" >Fantasy Punt Analyzer</a>
-	    </Navbar.Brand>
-	    <Navbar.Toggle />
-	  </Navbar.Header>
-	  <Navbar.Collapse>
-	    <Nav>
-	      <NavItem eventKey={1} href="/myTeam">
-	        My Team
-	      </NavItem>
+import Logged from "./logged";
+import Login from "./login";
 
-	      <NavDropdown eventKey={3} title="Actions" id="basic-nav-dropdown">
-	        <MenuItem href="/teamSelect" eventKey={3.1}>Team Select</MenuItem>
-	        <MenuItem eventKey={3.2}>Another action</MenuItem>
-	        <MenuItem eventKey={3.3}>Settings</MenuItem>
-	        <MenuItem divider />
-	        <MenuItem eventKey={3.3}>About</MenuItem>
-	      </NavDropdown>
+class Header extends Component {
+  render() {
+    return (
+      <div>
+        <AppBar
+          title="Fantasy Punt Analyzer"
+          iconElementLeft={
+            <IconButton>
+              <NavigationClose />
+            </IconButton>
+          }
+          iconElementRight={auth.loggedIn() ? <Logged /> : <Login />}
+        />
+      </div>
+    );
+  }
+}
 
-	    </Nav>
-	    <Nav pullRight>
-	      <NavItem eventKey={1} href="/logout">
-	        Logout
-	      </NavItem>
-	    </Nav>
-	  </Navbar.Collapse>
-	</Navbar>
-  );
-};
-
-export default Header;  
+export default Header;
