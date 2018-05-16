@@ -33,8 +33,6 @@ class FilterSelect extends React.Component {
     const labelBlackList = [
       "Rank",
       "Name",
-      "Team",
-      "Positions",
       "Owner",
       "Status",
       "FG%",
