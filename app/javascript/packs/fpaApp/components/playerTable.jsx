@@ -1,5 +1,6 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import loadingIcon from "../assets/images/icons/Circle128.gif";
 
 class PlayerTable extends React.Component {
   constructor(props) {
@@ -52,9 +53,13 @@ class PlayerTable extends React.Component {
           <tfoot>
             <tr>
               {this.state.isLoading ? (
-                <td className="loading">Loading...</td>
+                <td align="center" className="loading">
+                  <img src={loadingIcon} />
+                </td>
               ) : (
-                <td>...</td>
+                <td align="center">
+                  <img src={loadingIcon} />
+                </td>
               )}
             </tr>
           </tfoot>

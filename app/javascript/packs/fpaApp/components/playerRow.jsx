@@ -32,10 +32,9 @@ class PlayerRow extends React.Component {
           <span>
             <span style={{ "font-weight": "bold" }}>
               {this.props.player.name.full}{" "}
-            </span>
-
-            <span className="player-status-badge" style={{ color: "red" }}>
-              {this.props.player.status ? this.props.player.status : ""}
+              <span className="player-status-badge" style={{ color: "red" }}>
+                {this.props.player.status ? this.props.player.status : ""}
+              </span>
             </span>
             <br />
             <div style={{ "font-size": "small" }}>
