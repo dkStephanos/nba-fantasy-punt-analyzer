@@ -13,7 +13,7 @@ class Team extends React.Component {
             <p>Scoring Type: {this.props.team.league_scoring_type}</p>
             <p>
               <Button bsStyle="primary" href={this.props.team.url}>
-                To Team
+                Go to Yahoo!
               </Button>
             </p>
           </div>
