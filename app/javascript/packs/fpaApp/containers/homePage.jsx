@@ -18,7 +18,7 @@ class HomePage extends React.Component {
   componentDidMount() {
     // Initial actions
     this.props.determineCategoryLabels(this.props.players[0]);
-    this.props.sortPlayersByRank(this.props.players);
+    this.props.calculateAndSortPlayerRanksWithFilters(this.props.players, []);
     this.props.clearFilteredPlayers();
   }
 
