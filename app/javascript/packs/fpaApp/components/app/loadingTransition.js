@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import loadingIcon from "../../assets/images/icons/Circle256.gif";
+import logo from "../../assets/images/icons/CircleLogo.gif";
 
 class LoadingTransition extends Component {
   render() {
