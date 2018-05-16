@@ -11,9 +11,9 @@ class LoginPage extends React.Component {
   render() {
     return (
       <Jumbotron>
-        <h1>Welcome to the Fantasy Punt Analyzer!</h1>
+        <h1>Welcome to Fantasy Punt Analyzer!</h1>
         <p>
-          Being hard at everything is hard, especially in fantasy basketball.
+          Being good at everything is hard, especially in fantasy basketball.
           That is why we here at FPA believe in the holy act of punting
           statistical categories! We use live data from your Yahoo Sports league
           to dynamically rank and sort players with a custom algorithm that
