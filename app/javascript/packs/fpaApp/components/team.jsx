@@ -1,18 +1,25 @@
-import React from 'react';
+import React from "react";
+import { Button } from "react-bootstrap";
 
 class Team extends React.Component {
-
   render() {
-    return(
-      <div key={this.props.team.team_key}>
-        <h3>{this.props.team.name}</h3>
-        <img src={this.props.team.team_logos.team_logo.url}></img>
-        <p>Manager: {this.props.team.managers.manager.nickname}</p>
-        <img src={this.props.team.managers.manager.image_url}></img>
-        <p>Scoring Type: {this.props.team.league_scoring_type}</p>
-        <a href={this.props.team.url}>To Team</a>
+    return (
+      <div className="col-sm-6 col-md-4">
+        <div className="thumbnail">
+          <img src={this.props.team.team_logos.team_logo.url} alt="Team Logo" />
+          <div className="caption" style={{ textAlign: "center" }}>
+            <h3>{this.props.team.name}</h3>
+            <p>Manager: {this.props.team.managers.manager.nickname}</p>
+            <p>Scoring Type: {this.props.team.league_scoring_type}</p>
+            <p>
+              <Button bsStyle="primary" href={this.props.team.url}>
+                To Team
+              </Button>
+            </p>
+          </div>
+        </div>
       </div>
-    )
+    );
   }
 }
 export default Team;

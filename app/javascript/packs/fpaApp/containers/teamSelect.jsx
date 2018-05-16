@@ -32,13 +32,14 @@ class TeamSelect extends React.Component {
         <div
           className="teamCard"
           onClick={() => this.redirectToFetchingPlayers(team.team_key)}
+          key={`${team.team_key}-card`}
         >
-          <Team key={`${team.team_key}-card`} team={team} />
+          <Team team={team} />
         </div>
       ));
     }
 
-    return <div className="team-selector">{teams ? teams : ""}</div>;
+    return <div className="team-selector row">{teams ? teams : ""}</div>;
   }
 }
 
