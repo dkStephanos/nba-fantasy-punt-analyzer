@@ -62,7 +62,6 @@ class HomePage extends React.Component {
 
     return (
       <div>
-        <h1>NBA Fantasy Analyzer App</h1>
         <FilterSelect
           categoryLabels={this.props.categoryLabels}
           handleClick={this.handleApplyFilters}

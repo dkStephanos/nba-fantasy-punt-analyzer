@@ -8,7 +8,7 @@ const Header = () => {
       <Navbar.Header>
         <img
           src={fpaLogo}
-          className="pull-left"
+          className="pull-left img-fluid"
           style={{ maxWidth: "60px", padding: "3%", paddingRight: "5%" }}
         />
         <Navbar.Brand>
