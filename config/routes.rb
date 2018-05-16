@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   get '/teamSelect', to: 'pages#root', format: false
   get '/fetchingPlayers', to: 'pages#root', format: false
   get '/logout', to: 'pages#root', format: false
-  get '*path', to: 'pages#root', format: false
-
+  get '404', to: 'pages#root', format: false
 
   namespace :api do
   	get '/user_leagues', to: 'leagues#user_leagues'
