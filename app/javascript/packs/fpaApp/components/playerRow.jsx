@@ -1,4 +1,5 @@
 import React from "react";
+import { Badge } from "react-bootstrap";
 import { playerStatKeys } from "../assets/data/playerStatKeys";
 
 class PlayerRow extends React.Component {
@@ -22,7 +23,11 @@ class PlayerRow extends React.Component {
           style={this.props.style}
         >
           <span>
-            {this.props.rank}: <img src={this.props.player.headshot.url} />{" "}
+            <Badge>{this.props.rank}</Badge>
+            <img
+              style={{ "padding-left": "10%" }}
+              src={this.props.player.headshot.url}
+            />{" "}
           </span>
         </td>
         <td
