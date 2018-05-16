@@ -21,28 +21,28 @@ class PlayerRow extends React.Component {
           key={`${this.props.player.player_key}-rank`}
           style={this.props.style}
         >
-          {this.props.rank}: <img src={this.props.player.headshot.url} />
+          <span>
+            {this.props.rank}: <img src={this.props.player.headshot.url} />{" "}
+          </span>
         </td>
         <td
           key={`${this.props.player.player_key}-name`}
           style={this.props.style}
         >
-          {this.props.player.name.full}{" "}
-          <p className="player-status-badge">
-            {this.props.player.status ? this.props.player.status : ""}
-          </p>
-        </td>
-        <td
-          key={`${this.props.player.player_key}-team`}
-          style={this.props.style}
-        >
-          {this.props.player.editorial_team_abbr}
-        </td>
-        <td
-          key={`${this.props.player.player_key}-position`}
-          style={this.props.style}
-        >
-          {this.props.player.display_position}
+          <span>
+            <span style={{ "font-weight": "bold" }}>
+              {this.props.player.name.full}{" "}
+            </span>
+
+            <span className="player-status-badge" style={{ color: "red" }}>
+              {this.props.player.status ? this.props.player.status : ""}
+            </span>
+            <br />
+            <div style={{ "font-size": "small" }}>
+              {this.props.player.editorial_team_abbr} -{" "}
+              {this.props.player.display_position}
+            </div>
+          </span>
         </td>
         <td
           key={`${this.props.player.player_key}-owner`}
