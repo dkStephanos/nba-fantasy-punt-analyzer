@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import logo from '../../assets/images/logo.svg';
+import React, { Component } from "react";
+import loadingIcon from "../../assets/images/icons/Circle256.gif";
 
 class LoadingTransition extends Component {
-
   render() {
     return (
-      <div className="loading-transition">
-      <h1>Loading...</h1>
-        <img src={logo} className="Loading-logo" alt="logo" />
+      <div style={{ align: "center" }} className="loading-transition">
+        <img src={logo} className="loading" alt="logo" />
       </div>
     );
   }
