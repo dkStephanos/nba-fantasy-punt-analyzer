@@ -38,6 +38,7 @@ class TeamSelect extends React.Component {
         </div>
       ));
     }
+    teams = teams.reverse();
 
     return <div className="team-selector row">{teams ? teams : ""}</div>;
   }
