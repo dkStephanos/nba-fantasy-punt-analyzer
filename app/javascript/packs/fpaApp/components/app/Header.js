@@ -1,6 +1,7 @@
 import React, { PropTypes } from "react";
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
 import fpaLogo from "../../assets/images/icons/CircleLogo.ico";
+import { auth } from "../../utils/init";
 
 const Header = () => {
   return (
@@ -21,22 +22,36 @@ const Header = () => {
           <NavItem eventKey={1} href="/myTeam">
             My Team
           </NavItem>
-
-          <NavDropdown eventKey={3} title="Actions" id="basic-nav-dropdown">
-            <MenuItem href="/teamSelect" eventKey={3.1}>
-              Team Select
-            </MenuItem>
-            <MenuItem eventKey={3.2}>Another action</MenuItem>
-            <MenuItem eventKey={3.3}>Settings</MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey={3.3}>About</MenuItem>
-          </NavDropdown>
         </Nav>
-        <Nav pullRight>
-          <NavItem eventKey={1} href="/logout">
-            Logout
-          </NavItem>
-        </Nav>
+        {auth.loggedIn() ? (
+          <Nav pullRight>
+            <NavDropdown eventKey={3} title="Actions" id="basic-nav-dropdown">
+              <MenuItem
+                href="/teamSelect"
+                style={{ textAlign: "right" }}
+                eventKey={3.1}
+              >
+                Team Select
+              </MenuItem>
+              <MenuItem style={{ textAlign: "right" }} eventKey={3.2}>
+                Settings
+              </MenuItem>
+              <MenuItem style={{ textAlign: "right" }} eventKey={3.3}>
+                About
+              </MenuItem>
+              <MenuItem divider />
+              <MenuItem
+                style={{ textAlign: "right" }}
+                href="/logout"
+                eventKey={3.3}
+              >
+                Logout
+              </MenuItem>
+            </NavDropdown>
+          </Nav>
+        ) : (
+          ""
+        )}
       </Navbar.Collapse>
     </Navbar>
   );
