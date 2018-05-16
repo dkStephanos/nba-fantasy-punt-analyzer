@@ -31,9 +31,21 @@ class HomePage extends React.Component {
 
   render() {
     // Perhaps move this to a sub-component
-    let labels = this.props.categoryLabels.map(categoryLabel => (
-      <th key={`${categoryLabel}-table-header`}>{categoryLabel}</th>
-    ));
+    let labels = this.props.categoryLabels.map(
+      categoryLabel =>
+        categoryLabel === "Rank" ||
+        categoryLabel === "Name" ||
+        categoryLabel === "Owner" ? (
+          <th key={`${categoryLabel}-table-header`}>{categoryLabel}</th>
+        ) : (
+          <th
+            style={{ verticalAlign: "middle", textAlign: "center" }}
+            key={`${categoryLabel}-table-header`}
+          >
+            {categoryLabel}
+          </th>
+        )
+    );
     // Initializes currentRank to be incremented when creating PlayerRow's
     let currentRank = 1;
 

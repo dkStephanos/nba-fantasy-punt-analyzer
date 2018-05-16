@@ -9,7 +9,7 @@ class PlayerRow extends React.Component {
       <td
         key={`${this.props.player.player_key}-${stat.stat_id}`}
         title={playerStatKeys[stat.stat_id]}
-        style={this.props.style}
+        style={Object.assign({}, this.props.style, { textAlign: "center" })}
       >
         {stat.value}
       </td>
