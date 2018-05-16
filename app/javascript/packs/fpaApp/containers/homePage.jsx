@@ -46,7 +46,7 @@ class HomePage extends React.Component {
           key={`${player.player_id}`}
           player={player}
           rank={currentRank++}
-          style={{ "vertical-align": "middle" }}
+          style={{ verticalAlign: "middle" }}
         />
       ));
     } else {
@@ -55,7 +55,7 @@ class HomePage extends React.Component {
           key={`${player.player_id}`}
           player={player}
           rank={currentRank++}
-          style={{ "vertical-align": "middle" }}
+          style={{ verticalAlign: "middle" }}
         />
       ));
     }

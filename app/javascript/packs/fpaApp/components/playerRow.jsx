@@ -25,7 +25,7 @@ class PlayerRow extends React.Component {
           <span>
             <Badge>{this.props.rank}</Badge>
             <img
-              style={{ "padding-left": "10%" }}
+              style={{ paddingLeft: "10%" }}
               src={this.props.player.headshot.url}
             />{" "}
           </span>
@@ -35,14 +35,14 @@ class PlayerRow extends React.Component {
           style={this.props.style}
         >
           <span>
-            <span style={{ "font-weight": "bold" }}>
+            <span style={{ fontWeight: "bold" }}>
               {this.props.player.name.full}{" "}
               <span className="player-status-badge" style={{ color: "red" }}>
                 {this.props.player.status ? this.props.player.status : ""}
               </span>
             </span>
             <br />
-            <div style={{ "font-size": "small" }}>
+            <div style={{ fontSize: "small" }}>
               {this.props.player.editorial_team_abbr} -{" "}
               {this.props.player.display_position}
             </div>
