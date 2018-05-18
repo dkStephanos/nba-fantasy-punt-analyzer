@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 class Team extends React.Component {
   render() {
     return (
-      <div className="col-sm-6 col-md-4">
+      <div className="col-sm-6 col-md-4 col-lg-3">
         <div style={{ textAlign: "center" }} className="thumbnail">
           <img
             style={{ paddingTop: "3%" }}
