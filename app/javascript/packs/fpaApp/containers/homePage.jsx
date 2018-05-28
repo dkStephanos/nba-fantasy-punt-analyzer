@@ -30,6 +30,7 @@ class HomePage extends React.Component {
   };
 
   render() {
+    debugger;
     // Perhaps move this to a sub-component
     let labels = this.props.categoryLabels.map(
       categoryLabel =>
