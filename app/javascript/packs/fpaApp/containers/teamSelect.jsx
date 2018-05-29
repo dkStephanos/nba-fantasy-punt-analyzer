@@ -1,22 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getTeams } from "../actions/team";
+import { getUserTeams, postUserCurrentTeam } from "../actions/team";
 import { clearPlayers } from "../actions/player";
 import { middleware } from "../middleware/init";
 import Team from "../components/team";
 
 class TeamSelect extends React.Component {
   componentDidMount() {
-    this.props.getTeams();
+    this.props.getUserTeams();
     this.props.clearPlayers();
   }
 
-  redirectToFetchingPlayers = teamKey => {
-    //Save teamKey/leagueKey in sessionStorage before redirecting to homePage
-    //teamKey = 'GameID.l.LeagueID.t.TeamID' ... leagueKey = 'GameID.l.LeagueID'
-    middleware.setTeamKey(teamKey);
+  redirectToFetchingPlayers = userTeam => {
+    // Dispatches action to save selected team as user's currentTeam in database
+    const currentUserId = middleware.getCurrentUserId();
+    this.props.postUserCurrentTeam(userTeam, currentUserId);
+    //Save userTeam.team_key/leagueKey in sessionStorage before redirecting to homePage
+    //userTeam.team_key = 'GameID.l.LeagueID.t.TeamID' ... leagueKey = 'GameID.l.LeagueID'
+    middleware.setUserTeamKey(userTeam.team_key);
     middleware.setLeagueKey(
-      teamKey
+      userTeam.team_key
         .split(".")
         .slice(0, 3)
         .join(".")
@@ -26,28 +29,34 @@ class TeamSelect extends React.Component {
   };
 
   render() {
-    let teams = [];
-    if (this.props.teams) {
-      teams = this.props.teams.map(team => (
+    let userTeams = [];
+    if (this.props.userTeams) {
+      userTeams = this.props.userTeams.map(userTeam => (
         <div
-          className="teamCard"
-          onClick={() => this.redirectToFetchingPlayers(team.team_key)}
-          key={`${team.team_key}-card`}
+          className="userTeamCard"
+          onClick={() => this.redirectToFetchingPlayers(userTeam)}
+          key={`${userTeam.team_key}-card`}
         >
-          <Team team={team} />
+          <Team team={userTeam} />
         </div>
       ));
     }
-    teams = teams.reverse();
+    userTeams = userTeams.reverse();
 
-    return <div className="team-selector row">{teams ? teams : ""}</div>;
+    return (
+      <div className="team-selector row">{userTeams ? userTeams : ""}</div>
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    teams: state.teamReducer.teams
+    userTeams: state.teamReducer.userTeams
   };
 };
 
-export default connect(mapStateToProps, { getTeams, clearPlayers })(TeamSelect);
+export default connect(mapStateToProps, {
+  getUserTeams,
+  postUserCurrentTeam,
+  clearPlayers
+})(TeamSelect);
