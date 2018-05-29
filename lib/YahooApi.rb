@@ -10,6 +10,24 @@ class YahooApi
     }
   end
 
+  def user
+    request = Typhoeus::Request.new(
+      ENV['YAHOO_API_USER_URL'],
+      method: :get,
+      headers: @headers
+    )
+    request.run()
+    resp = request.response
+    # Convert from XML to JSON
+    respJSON = Hash.from_xml(resp.body).as_json
+     # Checks to make sure we got player data, returning it if so, otherwise an error message
+    if(respJSON["fantasy_content"]["users"]["user"]["count"].to_i > 0)
+      user = respJSON["fantasy_content"]["users"]["user"]
+    else
+      user = "Error fetching user data"
+    end
+  end
+
   def user_leagues
     # Get all leagues a user is in
     resp = self.class.get(

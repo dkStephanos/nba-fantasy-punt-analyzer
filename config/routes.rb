@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   namespace :api do
   	get '/user_leagues', to: 'leagues#user_leagues'
   	get '/players', to: 'players#players'
+    get '/current_user', to: 'users#current_user'
   	get '/user_team', to: 'teams#user_team'
   	get '/user_teams', to: 'teams#user_teams'
+    post '/user_current_team', to: 'teams#user_current_team'
   end
 end
