@@ -31,7 +31,11 @@ class PlayerTable extends React.Component {
   }
 
   loadMorePlayers() {
-    if (!this.state.isLoading) {
+    // Check to make sure we aren't in loading state and there are more players
+    if (
+      !this.state.isLoading &&
+      this.props.playerRows.length > this.state.numPlayers
+    ) {
       this.setState({ isLoading: true });
       setTimeout(() => {
         this.setState({
