@@ -53,11 +53,15 @@ class PlayerTable extends React.Component {
           <tfoot>
             <tr>
               {this.state.isLoading ? (
-                <td align="center" className="loading">
+                <td
+                  colSpan={this.props.labels.length}
+                  align="center"
+                  className="loading"
+                >
                   <img src={loadingIcon} />
                 </td>
               ) : (
-                <td align="center">
+                <td colSpan={this.props.labels.length} align="center">
                   <img src={loadingIcon} />
                 </td>
               )}
