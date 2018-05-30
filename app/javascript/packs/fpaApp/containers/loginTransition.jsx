@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { auth } from "../utils/init";
 import { connect } from "react-redux";
+
+import { Jumbotron } from "react-bootstrap";
 import { middleware } from "../middleware/init";
+import logo from "../assets/images/icons/Circle256.gif";
 
 import { getCurrentUser } from "../actions/user";
 
@@ -41,9 +44,10 @@ class LoginTransition extends Component {
 
   render() {
     return (
-      <div className="login-transition">
-        <h1>Login Transitioning</h1>
-      </div>
+      <Jumbotron style={{ textAlign: "center" }} className="login-transition">
+        <h2 style={{ fontWeight: "bold" }}>Login Transitioning...</h2>
+        <img className="loading" src={logo} />
+      </Jumbotron>
     );
   }
 }

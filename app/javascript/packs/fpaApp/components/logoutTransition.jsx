@@ -1,5 +1,8 @@
-import { auth } from '../utils/init';
-import React, { Component } from 'react';
+import { auth } from "../utils/init";
+import React, { Component } from "react";
+
+import { Jumbotron } from "react-bootstrap";
+import logo from "../assets/images/icons/Circle256.gif";
 
 class LogoutTransition extends Component {
   componentDidMount() {
@@ -8,9 +11,10 @@ class LogoutTransition extends Component {
 
   render() {
     return (
-      <div className="logout-transition">
-      	<h1>Logging out...</h1>
-      </div>
+      <Jumbotron style={{ textAlign: "center" }} className="logout-transition">
+        <h2 style={{ fontWeight: "bold" }}>Logging Out...</h2>
+        <img className="loading" src={logo} />
+      </Jumbotron>
     );
   }
 }
