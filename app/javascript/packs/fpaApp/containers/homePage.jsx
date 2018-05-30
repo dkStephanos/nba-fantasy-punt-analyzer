@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Pager } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { connect } from "react-redux";
 
 import { determineCategoryLabels } from "../actions/stat";
