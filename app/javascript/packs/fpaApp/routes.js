@@ -10,6 +10,7 @@ import LoginPage from "./components/loginPage";
 import LogoutTransition from "./components/logoutTransition";
 import LoadingTransition from "./components/app/loadingTransition";
 import NotFound from "./components/app/notFound";
+import About from "./components/app/about";
 
 import PlayerFetchTransition from "./containers/playerFetchTransition";
 import LeagueSelect from "./containers/leagueSelect";
@@ -30,6 +31,7 @@ const Routes = props => (
             <Route path="/fetchingPlayers" component={PlayerFetchTransition} />
             <Route path="/home" component={HomePage} />
             <Route path="/myTeam" component={MyTeam} />
+            <Route path="/about" component={About} />
             <Route exact path="/logout" component={LogoutTransition} />
             <Route exact path="/" component={LoginPage} />
             <Route path="*" component={NotFound} />

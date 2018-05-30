@@ -33,10 +33,14 @@ const Header = () => {
               >
                 Team Select
               </MenuItem>
-              <MenuItem style={{ textAlign: "right" }} eventKey={3.2}>
+              {/*<MenuItem href="/settings" style={{ textAlign: "right" }} eventKey={3.2}>
                 Settings
-              </MenuItem>
-              <MenuItem style={{ textAlign: "right" }} eventKey={3.3}>
+              </MenuItem>*/}
+              <MenuItem
+                href="/about"
+                style={{ textAlign: "right" }}
+                eventKey={3.3}
+              >
                 About
               </MenuItem>
               <MenuItem divider />
