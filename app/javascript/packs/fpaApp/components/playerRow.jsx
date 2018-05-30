@@ -22,13 +22,12 @@ class PlayerRow extends React.Component {
           key={`${this.props.player.player_key}-rank`}
           style={this.props.style}
         >
-          <span>
+          <div style={{ verticalAlign: "middle", display: "table-cell" }}>
             <Badge>{this.props.rank}</Badge>
-            <img
-              style={{ paddingLeft: "10%" }}
-              src={this.props.player.headshot.url}
-            />{" "}
-          </span>
+          </div>
+          <div style={{ paddingLeft: "10%", display: "table-cell" }}>
+            <img src={this.props.player.headshot.url} />{" "}
+          </div>
         </td>
         <td
           key={`${this.props.player.player_key}-name`}
