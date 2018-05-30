@@ -1,4 +1,5 @@
 import { auth } from "../utils/init";
+import { middleware } from "../middleware/init";
 import { playerStatKeys } from "../assets/data/playerStatKeys";
 
 const YAHOO_API_URL = process.env.YAHOO_API_BASE_URL;
@@ -13,10 +14,24 @@ const setPlayers = players => {
   };
 };
 
-const setUserTeamPlayers = userTeamPlayers => {
+const setFilteredPlayers = players => {
+  return {
+    type: "SET_FILTERED_PLAYERS",
+    players
+  };
+};
+
+const setUserTeamPlayers = players => {
   return {
     type: "GET_USER_TEAM_PLAYERS_SUCCESS",
-    userTeamPlayers
+    players
+  };
+};
+
+const setFilteredUserTeamPlayers = players => {
+  return {
+    type: "SET_FILTERED_USER_TEAM_PLAYERS",
+    players
   };
 };
 
@@ -41,16 +56,16 @@ const setPlayerRanks = players => {
   };
 };
 
-const sortPlayers = players => {
+const setSortedPlayers = players => {
   return {
     type: "SORT_PLAYERS_SUCCESS",
     players
   };
 };
 
-const setFilteredPlayers = players => {
+const setSortedUserTeamPlayers = players => {
   return {
-    type: "SET_FILTERED_PLAYERS",
+    type: "SORT_USER_TEAM_PLAYERS_SUCCESS",
     players
   };
 };
@@ -275,7 +290,8 @@ export const calculatePlayerRanks = players => {
   };
 };
 
-export const sortPlayersByRank = players => {
+// Sorts players by rank and stores in players or userTeamPlayers depending on value of isUserTeam
+export const sortPlayersByRank = (players, isUserTeam = false) => {
   return dispatch => {
     // Sort players based on the calculated rank
     players.sort((a, b) => {
@@ -283,11 +299,19 @@ export const sortPlayersByRank = players => {
     });
 
     // Finally, store the sorted players array in state
-    dispatch(sortPlayers(players));
+    isUserTeam
+      ? dispatch(setSortedUserTeamPlayers(players))
+      : dispatch(setSortedPlayers(players));
   };
 };
 
-export const calculateAndSortPlayerRanksWithFilters = (players, filters) => {
+// Proccesses player stats through the ranking algorithm, applying selected fitlers finally sorting players
+// Third parameter is used to store results in filteredPlayers or filteredUserTeamPlayers
+export const calculateAndSortPlayerRanksWithFilters = (
+  players,
+  filters,
+  isUserTeam = false
+) => {
   return dispatch => {
     // Initialize rank to 0, and set playersLength to player.length
     let rank = 0;
@@ -379,7 +403,9 @@ export const calculateAndSortPlayerRanksWithFilters = (players, filters) => {
     });
 
     // Finally, store the sorted filteredPlayers array in state
-    dispatch(setFilteredPlayers(filteredPlayers));
+    isUserTeam
+      ? dispatch(setFilteredUserTeamPlayers(filteredPlayers))
+      : dispatch(setFilteredPlayers(filteredPlayers));
   };
 };
 
@@ -387,6 +413,7 @@ export const clearPlayers = () => {
   return dispatch => {
     // Dispatch action which will reset the players array in state to an empty array
     dispatch(setPlayers([]));
+    dispatch(setUserTeamPlayers([]));
   };
 };
 
@@ -394,5 +421,6 @@ export const clearFilteredPlayers = () => {
   return dispatch => {
     // Dispatch action which will reset the filteredPlayers array in state to an empty array
     dispatch(setFilteredPlayers([]));
+    dispatch(setFilteredUserTeamPlayers([]));
   };
 };

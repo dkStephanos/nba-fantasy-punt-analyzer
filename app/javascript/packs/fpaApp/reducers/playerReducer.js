@@ -1,8 +1,8 @@
 const initialState = {
   players: [],
-  userTeamPlayers: [],
   filteredPlayers: [],
-  currentFilters: { categories: [], positions: [], statuses: [] }
+  userTeamPlayers: [],
+  filteredUserTeamPlayers: []
 };
 
 export default (state = initialState, action) => {
@@ -12,9 +12,19 @@ export default (state = initialState, action) => {
         players: [...action.players]
       });
 
+    case "SET_FILTERED_PLAYERS":
+      return Object.assign({}, state, {
+        filteredPlayers: [...action.players]
+      });
+
     case "GET_USER_TEAM_PLAYERS_SUCCESS":
       return Object.assign({}, state, {
-        userTeamPlayers: [...action.userTeamPlayers]
+        userTeamPlayers: [...action.players]
+      });
+
+    case "SET_FILTERED_USER_TEAM_PLAYERS":
+      return Object.assign({}, state, {
+        filteredUserTeamPlayers: [...action.players]
       });
 
     case "SET_FG_AND_FT_IMPACTS":
@@ -37,9 +47,9 @@ export default (state = initialState, action) => {
         players: [...action.players]
       });
 
-    case "SET_FILTERED_PLAYERS":
+    case "SORT_USER_TEAM_PLAYERS_SUCCESS":
       return Object.assign({}, state, {
-        filteredPlayers: [...action.players]
+        userTeamPlayers: [...action.players]
       });
 
     default:
